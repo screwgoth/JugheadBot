@@ -1,0 +1,6 @@
+Django==1.11
+django-secure==1.0.1
+djangorestframework==3.6.2
+psycopg2==2.7.1
+pytz==2017.2
+requests==2.14.2

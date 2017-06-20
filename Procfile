@@ -1,1 +1,1 @@
-web: gunicorn gettingstarted.wsgi --log-file -
+jughead: gunicorn Jughead.wsgi --log-file -

@@ -1,8 +1,8 @@
 {
-  "name": "Start on Heroku: Python",
-  "description": "A barebones Python app, which can easily be deployed to Heroku.",
+  "name": "Jughead : Backend for the Jughead Bot",
+  "description": "A REST API Server backend for the Jughead Bot",
   "image": "heroku/python",
-  "repository": "https://github.com/heroku/python-getting-started",
+  "repository": "https://github.com/screwgoth/Jughead",
   "keywords": ["python", "django" ],
   "addons": [ "heroku-postgresql" ]
 }

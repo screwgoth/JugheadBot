@@ -52,6 +52,7 @@ def handle_webhook(request):
                     message_text = message['message']['text']
                     print (sender_id, recipient_id, message_text)
                     PAGE_ACCESS_TOKEN=os.environ['PAGE_ACCESS_TOKEN']
+                    print (PAGE_ACCESS_TOKEN)
                     headers={"Content-Type":"application/json"}
                     params={"access_token":PAGE_ACCESS_TOKEN}
                     data = json.dumps({"recipient":{"id":recipient_id}, "message":{"text":"Wassup Yo'"}})

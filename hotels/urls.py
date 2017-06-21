@@ -12,4 +12,9 @@ urlpatterns = [
         views.handle_webhook,
         name='handle_webhook'
     ),
+    url(
+        r'^api/test',
+        views.test_api,
+        name='test_api'
+    ),
 ]

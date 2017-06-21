@@ -6,6 +6,11 @@ import requests
 import json
 
 # Create your views here.
+def test_api(request):
+    print ("In test_api")
+    resp = "{Reached}"
+    return Response(resp)
+
 @api_view(['GET'])
 def handle_webhook(request):
     # get all Hotel Categories

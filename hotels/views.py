@@ -1,3 +1,4 @@
+import os
 from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -17,14 +18,24 @@ def test_api(request):
 @api_view(['GET'])
 def handle_webhook(request):
     # get all Hotel Categories
+    resp = "{Webhook}"
     if request.method == 'GET':
         print ("In webhook")
         print (request.query_params)
+        if request.query_params['hub.mode'] == "subscribe" and request.query_params['hub.challenge']:
+            print ("Facebook verification request")
+            if request.query_params['hub.verify_token'] == os.environ['VERIFY_TOKEN']:
+                print ("Token matched")
+                resp = json.loads(request.query_params['hub.challenge'])
+            else:
+                print ("Verification token mismatched")
+        else:
+            print ("Not a Facebook verification")
         #body_unicode = request.body.decode('utf-8')
         #body = json.loads(body_unicode)
         #print (body)
-        tempresp = "{Done}"
-        return Response(tempresp)
+        #resp = "{Done}"
+        return Response(resp)
 
 @api_view(['GET','POST'])
 def get_hotel_info(request):

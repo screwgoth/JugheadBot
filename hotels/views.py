@@ -6,10 +6,13 @@ import requests
 import json
 
 # Create your views here.
+@api_view(['GET'])
 def test_api(request):
     print ("In test_api")
-    resp = "{Reached}"
-    return Response(resp)
+    tempresp= {
+        "api" : "reached"
+    }
+    return Response(tempresp)
 
 @api_view(['GET'])
 def handle_webhook(request):

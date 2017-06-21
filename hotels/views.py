@@ -40,7 +40,7 @@ def handle_webhook(request):
         print (request.body)
         body_unicode = request.body.decode('utf-8')
         incoming_message = json.loads(body_unicode)
-        print incoming_message
+        print (incoming_message)
         for entry in incoming_message['entry']:
             for message in entry['messaging']:
                 print (message)

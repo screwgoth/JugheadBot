@@ -15,7 +15,7 @@ def test_api(request):
     }
     return Response(tempresp)
 
-@api_view(['GET'])
+@api_view(['GET','POST'])
 def handle_webhook(request):
     # get all Hotel Categories
     resp = "{Webhook}"
@@ -35,6 +35,21 @@ def handle_webhook(request):
         #body = json.loads(body_unicode)
         #print (body)
         #resp = "{Done}"
+        return Response(resp)
+    if request.method == 'POST':
+        print (request.body)
+        body_unicode = request.body.decode('utf-8')
+        incoming_message = json.loads(body_unicode)
+        print incoming_message
+        for entry in incoming_message['entry']:
+            for message in entry['messaging']:
+                print (message)
+                if 'message' in message:
+                    print (message)
+                    sender_id = message['sender']['id']
+                    recipient_id = message['recipient']['id']
+                    message_text = message['message']['text']
+                    print (sender_id, recipient_id, message_text)
         return Response(resp)
 
 @api_view(['GET','POST'])

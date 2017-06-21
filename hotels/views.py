@@ -53,8 +53,8 @@ def handle_webhook(request):
                     print (sender_id, recipient_id, message_text)
                     PAGE_ACCESS_TOKEN=os.environ['PAGE_ACCESS_TOKEN']
                     headers={"Content-Type":"application/json"}
-                    params={'access_token':PAGE_ACCESS_TOKEN}
-                    data=response_msg = json.dumps({"recipient":{"id":recipient_id}, "message":{"text":"Wassup Yo'"}})
+                    params={"access_token":PAGE_ACCESS_TOKEN}
+                    data = json.dumps({"recipient":{"id":recipient_id}, "message":{"text":"Wassup Yo'"}})
 
                     status = requests.post(facebook_url,params=params,headers=headers,data=data)
                     print (status.status_code)

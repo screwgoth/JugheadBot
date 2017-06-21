@@ -19,7 +19,7 @@ def handle_webhook(request):
     # get all Hotel Categories
     if request.method == 'GET':
         print ("In webhook")
-        print (request)
+        print (request.query_params)
         #body_unicode = request.body.decode('utf-8')
         #body = json.loads(body_unicode)
         #print (body)

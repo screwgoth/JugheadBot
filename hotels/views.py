@@ -19,6 +19,7 @@ def test_api(request):
 def handle_webhook(request):
     # get all Hotel Categories
     resp = "{Webhook}"
+    facebook_url = "https://graph.facebook.com/v2.6/me/messages"
     if request.method == 'GET':
         print ("In webhook")
         print (request.query_params)
@@ -50,6 +51,15 @@ def handle_webhook(request):
                     recipient_id = message['recipient']['id']
                     message_text = message['message']['text']
                     print (sender_id, recipient_id, message_text)
+                    PAGE_ACCESS_TOKEN=os.environ['PAGE_ACCESS_TOKEN']
+                    headers={"Content-Type":"applicaiton/json"}
+                    params={"access_token":PAGE_ACCESS_TOKEN}
+                    data=response_msg = json.dumps({"recipient":{"id":recipient_id}, "message":{"text":"Wassup Yo'"}})
+
+                    status = requests.post(facebook_url,params=params,headers=headers,data=data)
+                    print (status.status_code)
+                    print (status.text)
+
         return Response(resp)
 
 @api_view(['GET','POST'])

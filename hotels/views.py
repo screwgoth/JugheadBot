@@ -45,10 +45,10 @@ def get_hotel_info(request):
         resp_dict=json.loads(resp.text)
         restaurants = (resp_dict['restaurants'])
         disp_cat = ""
-        res_name = restaurant['restaurant']['name']
-        res_url = restaurant['restaurant']['url']
-        res_photo = restaurant['restaurant']['featured_image']
-        res_menu = restaurant['restaurant']['menu_url']
+        res_name = restaurants[0]['restaurant']['name']
+        res_url = restaurants[0]['restaurant']['url']
+        res_photo = restaurants[0]['restaurant']['featured_image']
+        res_menu = restaurants[0]['restaurant']['menu_url']
         print (res_name, res_url, res_photo, res_menu)
         for restaurant in restaurants:
             name = restaurant['restaurant']['name']

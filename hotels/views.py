@@ -55,7 +55,7 @@ def handle_webhook(request):
                     print (sender_id, recipient_id, message_text)
                     headers={"Content-Type":"application/json"}
                     params={"access_token":PAGE_ACCESS_TOKEN}
-                    data = json.dumps({"recipient":{"id":recipient_id}, "message":{"text":"Wassup Yo"}})
+                    data = json.dumps({"recipient":{"id":sender_id}, "message":{"text":"Wassup Yo"}})
 
                     status = requests.post(facebook_url,params=params,headers=headers,data=data)
                     print (status.status_code)

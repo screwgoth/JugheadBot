@@ -30,7 +30,7 @@ def get_hotel_info(request):
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
         city_json = body['result']['parameters']
-        city = city_json['street-address']
+        city = city_json['geo-city']
         print (city)
         headers={"Accept":"applicaiton/json",
         "user-key": "b0fcc8e574f96ad3e80be23d898aa861"}

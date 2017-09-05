@@ -24,12 +24,12 @@ def get_hotel_info(request):
         print (request.body)
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
-        city_json = body['result']['parameters']
-        city = city_json['geo-city']
+        loc_json = body['result']['parameters']
+        loc = loc_json['address']
         print (city)
         headers={"Accept":"applicaiton/json",
         "user-key": "b0fcc8e574f96ad3e80be23d898aa861"}
-        search_url = "https://developers.zomato.com/api/v2.1/locations?query="+city
+        search_url = "https://developers.zomato.com/api/v2.1/locations?query="+loc
         search_resp=requests.get(search_url,headers=headers)
         search_resp_dict=json.loads(search_resp.text)
         loc_sug_list = search_resp_dict['location_suggestions']

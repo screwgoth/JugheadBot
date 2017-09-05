@@ -61,6 +61,9 @@ def handle_webhook(request):
                     status = requests.post(facebook_url,params=params,headers=headers,data=data)
                     print (status.status_code)
                     print (status.text)
+                    resp = {
+                        "text" : "Wassup Yo!",
+                    }
 
         return Response(resp)
 

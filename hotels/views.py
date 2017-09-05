@@ -52,6 +52,7 @@ def get_hotel_info(request):
             res_url = restaurant['restaurant']['url']
             res_photo = restaurant['restaurant']['featured_image']
             res_menu = restaurant['restaurant']['menu_url']
+            print (res_name, res_url, res_photo, res_menu)
         # tempresp= {
         #     "messages": [
         #                 {
@@ -74,10 +75,7 @@ def get_hotel_info(request):
                             "default_action": {
                                 "type": "web_url",
                                 "url": res_url,
-                                "messenger_extensions":"true",
-                                "webview_height_ratio": "tall",
-                                "fallback_url":"http://zomator.com"
-                            },
+                                "webview_height_ratio": "tall"                            },
                             "buttons":[
                             {
                                 "type":"web_url",
@@ -91,4 +89,5 @@ def get_hotel_info(request):
                 } #attachment
             } #message
         }
+        print tempresp
         return Response(tempresp)

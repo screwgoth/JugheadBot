@@ -61,34 +61,42 @@ def get_hotel_info(request):
         #                 }
         #     ]
         # }
+        # tempresp = {
+        #     "messages": [
+        #     {
+        #         "attachment": {
+        #             "type": "template",
+        #             "payload":{
+        #                 "template_type":"generic",
+        #                 "elements":[
+        #                 {
+        #                     "title":res_name,
+        #                     "image_url": res_photo,
+        #                     "subtitle":"A little about this Restaurant",
+        #                     "default_action": {
+        #                         "type": "web_url",
+        #                         "url": res_url,
+        #                         "webview_height_ratio": "tall"                            },
+        #                     "buttons":[
+        #                     {
+        #                         "type":"web_url",
+        #                         "url":res_menu,
+        #                         "title":"Restaurant Menu"
+        #                     }
+        #                     ]
+        #                 }
+        #                 ]
+        #             } #payload
+        #         } #attachment
+        #     } #message
+        #     ]
+        # }
         tempresp = {
-            "messages": [
-            {
-                "attachment": {
-                    "type": "template",
-                    "payload":{
-                        "template_type":"generic",
-                        "elements":[
-                        {
-                            "title":res_name,
-                            "image_url": res_photo,
-                            "subtitle":"A little about this Restaurant",
-                            "default_action": {
-                                "type": "web_url",
-                                "url": res_url,
-                                "webview_height_ratio": "tall"                            },
-                            "buttons":[
-                            {
-                                "type":"web_url",
-                                "url":res_menu,
-                                "title":"Restaurant Menu"
-                            }
-                            ]
-                        }
-                        ]
-                    } #payload
-                } #attachment
-            } #message
+            "messages" : [
+                {
+                    "type": 3,
+                    "imageUrl" : "https://b.zmtcdn.com/data/pictures/4/17806994/460a8e3456680be69970e4afdf7b5636_featured_v2.jpg"
+                }
             ]
         }
         print (tempresp)

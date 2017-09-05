@@ -65,28 +65,27 @@ def get_hotel_info(request):
                 "attachment": {
                     "type": "template",
                     "payload":{
+                        "template_type":"generic",
                         "elements":[
                         {
-                        "title":res_name,
-                        "image_url": res_photo,
-                        "subtitle":"A little about this Restaurant",
-                        "default_action": {
-                            "type": "web_url",
-                            "url": res_url,
-                            "messenger_extensions":"true",
-                            "webview_height_ratio": "tall",
-                            "fallback_url":"http://zomator.com"
-                        },
-                        "buttons":[
-                        {
-                            "type":"web_url",
-                            "url":res_menu,
-                            "title":"Restaurant Menu"
+                            "title":res_name,
+                            "image_url": res_photo,
+                            "subtitle":"A little about this Restaurant",
+                            "default_action": {
+                                "type": "web_url",
+                                "url": res_url,
+                                "messenger_extensions":"true",
+                                "webview_height_ratio": "tall",
+                                "fallback_url":"http://zomator.com"
+                            },
+                            "buttons":[
+                            {
+                                "type":"web_url",
+                                "url":res_menu,
+                                "title":"Restaurant Menu"
+                            }
+                            ]
                         }
-                        ]
-
-                        }
-
                         ]
                     } #payload
                 } #attachment

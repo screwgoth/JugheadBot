@@ -89,5 +89,5 @@ def get_hotel_info(request):
                 } #attachment
             } #message
         }
-        print tempresp
+        print (tempresp)
         return Response(tempresp)

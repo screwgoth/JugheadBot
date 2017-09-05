@@ -69,14 +69,14 @@ def get_hotel_info(request):
                         {
                         "title":res_name,
                         "image_url": res_photo,
-                        "subtitle":"A little about this Restaurant"
+                        "subtitle":"A little about this Restaurant",
                         "default_action": {
                             "type": "web_url",
                             "url": res_url,
                             "messenger_extensions":"true",
                             "webview_height_ratio": "tall",
                             "fallback_url":"http://zomator.com"
-                        }
+                        },
                         "buttons":[
                         {
                             "type":"web_url",

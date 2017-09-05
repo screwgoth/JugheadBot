@@ -94,8 +94,70 @@ def get_hotel_info(request):
                 } #attachment
                 } # facebook
                 } #payload
-            } #message
-            ]
+            },
+            {
+                "type": 4,
+                "payload": {
+                "facebook" : {
+                "attachment": {
+                    "type": "template",
+                    "payload":{
+                        "template_type":"generic",
+                        "elements":[
+                        {
+                            "title":res_name,
+                            "image_url": res_photo,
+                            "subtitle": res_addr,
+                            "default_action": {
+                                "type": "web_url",
+                                "url": res_url,
+                                "webview_height_ratio": "tall"                            },
+                            "buttons":[
+                            {
+                                "type":"web_url",
+                                "url":res_menu,
+                                "title":"Restaurant Menu"
+                            }
+                            ]
+                        }
+                        ]
+                    } #payload
+                } #attachment
+                } # facebook
+                } #payload
+            },
+            {
+                "type": 4,
+                "payload": {
+                "facebook" : {
+                "attachment": {
+                    "type": "template",
+                    "payload":{
+                        "template_type":"generic",
+                        "elements":[
+                        {
+                            "title":res_name,
+                            "image_url": res_photo,
+                            "subtitle": res_addr,
+                            "default_action": {
+                                "type": "web_url",
+                                "url": res_url,
+                                "webview_height_ratio": "tall"                            },
+                            "buttons":[
+                            {
+                                "type":"web_url",
+                                "url":res_menu,
+                                "title":"Restaurant Menu"
+                            }
+                            ]
+                        }
+                        ]
+                    } #payload
+                } #attachment
+                } # facebook
+                } #payload
+            }
+            ] #messages
         }
         # tempresp = {
         #     "messages" : [

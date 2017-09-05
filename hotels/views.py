@@ -20,7 +20,7 @@ def handle_webhook(request):
     # get all Hotel Categories
     resp = "{Webhook}"
     PAGE_ACCESS_TOKEN=os.environ['PAGE_ACCESS_TOKEN']
-    print PAGE_ACCESS_TOKEN
+    print (PAGE_ACCESS_TOKEN)
     facebook_url = "https://graph.facebook.com/v2.10/me/messages"
     if request.method == 'GET':
         print ("In webhook")

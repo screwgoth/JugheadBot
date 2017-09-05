@@ -94,8 +94,15 @@ def get_hotel_info(request):
         tempresp = {
             "messages" : [
                 {
-                    "type": 3,
-                    "imageUrl" : "https://b.zmtcdn.com/data/pictures/4/17806994/460a8e3456680be69970e4afdf7b5636_featured_v2.jpg"
+                    "type": 1,
+                    "title": "Restaurants",
+                    "subtitle": "Top 5 Restaurants",
+                    "buttons": [
+                    {
+                        "text" : res_name,
+                        "postback" : res_url
+                    }
+                    ]
                 }
             ]
         }

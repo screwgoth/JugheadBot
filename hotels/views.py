@@ -52,7 +52,7 @@ def get_hotel_info(request):
             "messages": [
                         {
                             "type": 0,
-                            "speech": "Raseel"
+                            "speech": disp_cat
                         }
             ]
         }

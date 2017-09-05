@@ -20,7 +20,8 @@ def handle_webhook(request):
     # get all Hotel Categories
     resp = "{Webhook}"
     PAGE_ACCESS_TOKEN=os.environ['PAGE_ACCESS_TOKEN']
-    facebook_url = "https://graph.facebook.com/v2.10/me/subscribed_apps?access_token="+PAGE_ACCESS_TOKEN
+    print PAGE_ACCESS_TOKEN
+    facebook_url = "https://graph.facebook.com/v2.10/me/messages"
     if request.method == 'GET':
         print ("In webhook")
         print (request.query_params)
@@ -52,8 +53,6 @@ def handle_webhook(request):
                     recipient_id = message['recipient']['id']
                     message_text = message['message']['text']
                     print (sender_id, recipient_id, message_text)
-                    PAGE_ACCESS_TOKEN=os.environ['PAGE_ACCESS_TOKEN']
-                    print (PAGE_ACCESS_TOKEN)
                     headers={"Content-Type":"application/json"}
                     params={"access_token":PAGE_ACCESS_TOKEN}
                     data = json.dumps({"recipient":{"id":recipient_id}, "message":{"text":"Wassup Yo"}})

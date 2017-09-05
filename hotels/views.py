@@ -25,8 +25,9 @@ def get_hotel_info(request):
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
         loc_json = body['result']['parameters']
-        loc = loc_json['address']
-        print (city)
+        if loc_json['geo-city']:
+            loc = loc_json['geo-city']
+            print (loc)
         headers={"Accept":"applicaiton/json",
         "user-key": "b0fcc8e574f96ad3e80be23d898aa861"}
         search_url = "https://developers.zomato.com/api/v2.1/locations?query="+loc

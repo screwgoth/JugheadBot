@@ -62,7 +62,8 @@ def get_hotel_info(request):
         #     ]
         # }
         tempresp = {
-            "message":{
+            "messages": [
+            {
                 "attachment": {
                     "type": "template",
                     "payload":{
@@ -88,6 +89,7 @@ def get_hotel_info(request):
                     } #payload
                 } #attachment
             } #message
+            ]
         }
         print (tempresp)
         return Response(tempresp)

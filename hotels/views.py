@@ -19,7 +19,8 @@ def test_api(request):
 def handle_webhook(request):
     # get all Hotel Categories
     resp = "{Webhook}"
-    facebook_url = "https://graph.facebook.com/v2.6/me/messages"
+    PAGE_ACCESS_TOKEN=os.environ['PAGE_ACCESS_TOKEN']
+    facebook_url = "https://graph.facebook.com/v2.10/me/subscribed_apps?access_token="+PAGE_ACCESS_TOKEN
     if request.method == 'GET':
         print ("In webhook")
         print (request.query_params)

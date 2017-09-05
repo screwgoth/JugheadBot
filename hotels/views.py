@@ -46,6 +46,7 @@ def get_hotel_info(request):
         restaurants = (resp_dict['restaurants'])
         disp_cat = ""
         res_name = restaurants[0]['restaurant']['name']
+        res_addr = restaurants[0]['restaurant']['location']['address']
         res_url = restaurants[0]['restaurant']['url']
         res_photo = restaurants[0]['restaurant']['featured_image']
         res_menu = restaurants[0]['restaurant']['menu_url']
@@ -61,50 +62,55 @@ def get_hotel_info(request):
         #                 }
         #     ]
         # }
-        # tempresp = {
-        #     "messages": [
-        #     {
-        #         "attachment": {
-        #             "type": "template",
-        #             "payload":{
-        #                 "template_type":"generic",
-        #                 "elements":[
-        #                 {
-        #                     "title":res_name,
-        #                     "image_url": res_photo,
-        #                     "subtitle":"A little about this Restaurant",
-        #                     "default_action": {
-        #                         "type": "web_url",
-        #                         "url": res_url,
-        #                         "webview_height_ratio": "tall"                            },
-        #                     "buttons":[
-        #                     {
-        #                         "type":"web_url",
-        #                         "url":res_menu,
-        #                         "title":"Restaurant Menu"
-        #                     }
-        #                     ]
-        #                 }
-        #                 ]
-        #             } #payload
-        #         } #attachment
-        #     } #message
-        #     ]
-        # }
         tempresp = {
-            "messages" : [
-                {
-                    "type": 1,
-                    "title": "Restaurants",
-                    "subtitle": "Top 5 Restaurants",
-                    "buttons": [
-                    {
-                        "text" : res_name,
-                        "postback" : res_url
-                    }
-                    ]
-                }
+            "messages": [
+            {
+                "type": 4,
+                "payload": {
+                "facebook" : {
+                "attachment": {
+                    "type": "template",
+                    "payload":{
+                        "template_type":"generic",
+                        "elements":[
+                        {
+                            "title":res_name,
+                            "image_url": res_photo,
+                            "subtitle": res_addr,
+                            "default_action": {
+                                "type": "web_url",
+                                "url": res_url,
+                                "webview_height_ratio": "tall"                            },
+                            "buttons":[
+                            {
+                                "type":"web_url",
+                                "url":res_menu,
+                                "title":"Restaurant Menu"
+                            }
+                            ]
+                        }
+                        ]
+                    } #payload
+                } #attachment
+                } # facebook
+                } #payload
+            } #message
             ]
         }
+        # tempresp = {
+        #     "messages" : [
+        #         {
+        #             "type": 1,
+        #             "title": res_name,
+        #             "subtitle": res_addr,
+        #             "buttons": [
+        #             {
+        #                 "text" : "More Info",
+        #                 "postback" : res_url
+        #             }
+        #             ]
+        #         }
+        #     ]
+        # }
         print (tempresp)
         return Response(tempresp)

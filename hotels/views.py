@@ -54,7 +54,7 @@ def get_hotel_info(request):
             #print (restaurant)
             name = restaurant['restaurant']['name']
             #disp_cat += "\n".join(name)
-            disp_cat += name + " "
+            disp_cat += name + "\n "
         # for item in resp_dict:
         #     cat_list = resp_dict[item]
         #     print (cat_list)

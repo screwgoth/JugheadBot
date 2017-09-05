@@ -48,12 +48,48 @@ def get_hotel_info(request):
         for restaurant in restaurants:
             name = restaurant['restaurant']['name']
             disp_cat += name + "\n "
-        tempresp= {
-            "messages": [
+            res_name = restaurant['restaurant']['name']
+            res_url = restaurant['restaurant']['url']
+            res_photo = restaurant['restaurant']['featured_image']
+            res_menu = restaurant['restaurant']['menu_url']
+        # tempresp= {
+        #     "messages": [
+        #                 {
+        #                     "type": 0,
+        #                     "speech": disp_cat
+        #                 }
+        #     ]
+        # }
+        tempresp = {
+            "message":{
+                "attachment": {
+                    "type": "template",
+                    "payload":{
+                        "elements":[
                         {
-                            "type": 0,
-                            "speech": disp_cat
+                        "title":res_name,
+                        "image_url": res_photo,
+                        "subtitle":"A little about this Restaurant"
+                        "default_action": {
+                            "type": "web_url",
+                            "url": res_url,
+                            "messenger_extensions":"true",
+                            "webview_height_ratio": "tall",
+                            "fallback_url":"http://zomator.com"
                         }
-            ]
+                        "buttons":[
+                        {
+                            "type":"web_url",
+                            "url":res_menu,
+                            "title":"Restaurant Menu"
+                        }
+                        ]
+
+                        }
+
+                        ]
+                    } #payload
+                } #attachment
+            } #message
         }
         return Response(tempresp)

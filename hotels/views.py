@@ -49,8 +49,11 @@ def get_hotel_info(request):
             name = restaurant['restaurant']['name']
             disp_cat += name + "\n "
         tempresp= {
-            "speech" : disp_cat,
-            "displayText" : disp_cat,
-            "source" : "Zomato"
+            "messages": [
+                        {
+                            "type": 0,
+                            "speech": "Raseel"
+                        }
+            ]
         }
         return Response(tempresp)

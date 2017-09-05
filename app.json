@@ -1,0 +1,8 @@
+{
+  "name": "Jughead : Backend for the Jughead Bot",
+  "description": "A REST API Server backend for the Jughead Bot",
+  "image": "heroku/python",
+  "repository": "https://github.com/screwgoth/Jughead",
+  "keywords": ["python", "django" ],
+  "addons": [ "heroku-postgresql" ]
+}

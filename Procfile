@@ -1,0 +1,1 @@
+web: gunicorn Jughead.wsgi

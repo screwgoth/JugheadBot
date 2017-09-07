@@ -42,8 +42,11 @@ def get_hotel_info(request):
 
         zomato_url="https://developers.zomato.com/api/v2.1/search?entity_id="+str(entity_id)+"&entity_type="+str(entity_type)+"&count=5&sort=rating&order=desc"
         resp=requests.get(zomato_url,headers=headers)
+        print (resp)
         resp_dict=json.loads(resp.text)
+        print (resp_dict)
         restaurants = (resp_dict['restaurants'])
+        print (restaurants)
         disp_cat = ""
         res_name = restaurants[0]['restaurant']['name']
         res_addr = restaurants[0]['restaurant']['location']['address']

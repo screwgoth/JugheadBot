@@ -42,24 +42,26 @@ def get_hotel_info(request):
 
         zomato_url="https://developers.zomato.com/api/v2.1/search?entity_id="+str(entity_id)+"&entity_type="+str(entity_type)+"&count=5&sort=rating&order=desc"
         resp=requests.get(zomato_url,headers=headers)
-        print ("================== Zomato Response =================")
-        print (resp)
         resp_dict=json.loads(resp.text)
-        print ("================== Zomato Response Python Dict =============")
-        print (resp_dict)
+        #print ("================== Zomato Response Python Dict =============")
+        #print (resp_dict)
         restaurants = (resp_dict['restaurants'])
-        print ("================== Zomato Response  - Restaurants ===============")
-        print (restaurants)
+        #print ("================== Zomato Response  - Restaurants ===============")
+        #print (restaurants)
         disp_cat = ""
-        res_name = restaurants[0]['restaurant']['name']
-        res_addr = restaurants[0]['restaurant']['location']['address']
-        res_url = restaurants[0]['restaurant']['url']
-        res_photo = restaurants[0]['restaurant']['featured_image']
-        res_menu = restaurants[0]['restaurant']['menu_url']
-        print (res_name, res_url, res_photo, res_menu)
-        for restaurant in restaurants:
-            name = restaurant['restaurant']['name']
-            disp_cat += name + "\n "
+        elements1 = []
+        sample_list = []
+        for i in restaurants:
+            zomato_dict = {}
+            zomato_dict['res_name'] = i['restaurant']['name']
+            zomato_dict['res_addr'] = i['restaurant']['location']['address']
+            zomato_dict['res_url'] = i['restaurant']['url']
+            zomato_dict['res_photo'] = i['restaurant']['featured_image']
+            zomato_dict['res_menu'] = i['restaurant']['menu_url']
+            sample_list.append(zomato_dict)
+
+
+
         # tempresp= {
         #     "messages": [
         #                 {
@@ -68,41 +70,41 @@ def get_hotel_info(request):
         #                 }
         #     ]
         # }
-        tempresp = {
-            "messages": [
-            {
-                "type": 4,
-                "payload": {
-                "facebook" : {
-                "attachment": {
-                    "type": "template",
-                    "payload":{
-                        "template_type":"generic",
-                        "elements":[
-                        {
-                            "title":res_name,
-                            "image_url": res_photo,
-                            "subtitle": res_addr,
-                            "default_action": {
-                                "type": "web_url",
-                                "url": res_url,
-                                "webview_height_ratio": "tall"                            },
-                            "buttons":[
-                            {
-                                "type":"web_url",
-                                "url":res_menu,
-                                "title":"Restaurant Menu"
-                            }
-                            ]
-                        }
-                        ]
-                    } #payload
-                } #attachment
-                } # facebook
-                } #payload
-            }
-            ] #messages
-        }
+        # tempresp = {
+        #     "messages": [
+        #     {
+        #         "type": 4,
+        #         "payload": {
+        #         "facebook" : {
+        #         "attachment": {
+        #             "type": "template",
+        #             "payload":{
+        #                 "template_type":"generic",
+        #                 "elements":[
+        #                 {
+        #                     "title":res_name,
+        #                     "image_url": res_photo,
+        #                     "subtitle": res_addr,
+        #                     "default_action": {
+        #                         "type": "web_url",
+        #                         "url": res_url,
+        #                         "webview_height_ratio": "tall"                            },
+        #                     "buttons":[
+        #                     {
+        #                         "type":"web_url",
+        #                         "url":res_menu,
+        #                         "title":"Restaurant Menu"
+        #                     }
+        #                     ]
+        #                 }
+        #                 ]
+        #             } #payload
+        #         } #attachment
+        #         } # facebook
+        #         } #payload
+        #     }
+        #     ] #messages
+        # }
         # tempresp = {
         #     "messages" : [
         #         {
@@ -118,5 +120,42 @@ def get_hotel_info(request):
         #         }
         #     ]
         # }
-        print (tempresp)
-        return Response(tempresp)
+        for restaurant in sample_list:
+            tempresp = {}
+            tempresp["messages"] = [
+            {
+                "type": 4,
+                "payload": {
+                    "facebook": {
+                        "attachment": {
+                            "type": "template",
+                            "payload": {
+                                "template_type": "generic",
+                                "elements": [
+                                    {
+                                        "title": i["res_name"],
+                                        "image_url": i["res_photo"],
+                                        "subtitle": i["res_addr"],
+                                        "default_action": {
+                                                            "type": "web_url",
+                                                            "url": i["res_url"],
+                                                            "webview_height_ratio": "tall"
+                                                          },
+                                        "buttons": [
+                                                    {
+                                                        "type": "web_url",
+                                                        "url": i["res_menu"],
+                                                        "title": "Restaurant Menu"
+                                                    }
+                                                    ]
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                }
+            }
+            ]
+            print (tempresp)
+            elements1.append(tempresp)
+        return Response(elements1)

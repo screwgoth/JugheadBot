@@ -120,10 +120,11 @@ def get_hotel_info(request):
         #         }
         #     ]
         # }
+        messages = []
+
         for restaurant in sample_list:
             tempresp = {}
-            tempresp["messages"] = [
-            {
+            tempresp = {
                 "type": 4,
                 "payload": {
                     "facebook": {
@@ -155,7 +156,12 @@ def get_hotel_info(request):
                     }
                 }
             }
-            ]
-            print (tempresp)
-            elements1.append(tempresp)
-        return Response(elements1)
+
+            #print (tempresp)
+            messages.append(tempresp)
+        print (messages)
+        response = {
+            "messages" : messages
+        }
+        print (response)
+        return Response(response)

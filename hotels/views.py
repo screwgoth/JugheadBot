@@ -133,18 +133,18 @@ def get_hotel_info(request):
                                 "template_type": "generic",
                                 "elements": [
                                     {
-                                        "title": i["res_name"],
-                                        "image_url": i["res_photo"],
-                                        "subtitle": i["res_addr"],
+                                        "title": restaurant["res_name"],
+                                        "image_url": restaurant["res_photo"],
+                                        "subtitle": restaurant["res_addr"],
                                         "default_action": {
                                                             "type": "web_url",
-                                                            "url": i["res_url"],
+                                                            "url": restaurant["res_url"],
                                                             "webview_height_ratio": "tall"
                                                           },
                                         "buttons": [
                                                     {
                                                         "type": "web_url",
-                                                        "url": i["res_menu"],
+                                                        "url": restaurant["res_menu"],
                                                         "title": "Restaurant Menu"
                                                     }
                                                     ]

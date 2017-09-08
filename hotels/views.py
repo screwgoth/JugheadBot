@@ -43,14 +43,9 @@ def get_hotel_info(request):
         zomato_url="https://developers.zomato.com/api/v2.1/search?entity_id="+str(entity_id)+"&entity_type="+str(entity_type)+"&count=5&sort=rating&order=desc"
         resp=requests.get(zomato_url,headers=headers)
         resp_dict=json.loads(resp.text)
-        #print ("================== Zomato Response Python Dict =============")
-        #print (resp_dict)
         restaurants = (resp_dict['restaurants'])
-        #print ("================== Zomato Response  - Restaurants ===============")
-        #print (restaurants)
-        disp_cat = ""
         elements1 = []
-        sample_list = []
+        restaurant_list = []
         for i in restaurants:
             zomato_dict = {}
             zomato_dict['res_name'] = i['restaurant']['name']
@@ -58,9 +53,7 @@ def get_hotel_info(request):
             zomato_dict['res_url'] = i['restaurant']['url']
             zomato_dict['res_photo'] = i['restaurant']['featured_image']
             zomato_dict['res_menu'] = i['restaurant']['menu_url']
-            sample_list.append(zomato_dict)
-
-
+            restaurant_list.append(zomato_dict)
 
         # tempresp= {
         #     "messages": [
@@ -70,59 +63,10 @@ def get_hotel_info(request):
         #                 }
         #     ]
         # }
-        # tempresp = {
-        #     "messages": [
-        #     {
-        #         "type": 4,
-        #         "payload": {
-        #         "facebook" : {
-        #         "attachment": {
-        #             "type": "template",
-        #             "payload":{
-        #                 "template_type":"generic",
-        #                 "elements":[
-        #                 {
-        #                     "title":res_name,
-        #                     "image_url": res_photo,
-        #                     "subtitle": res_addr,
-        #                     "default_action": {
-        #                         "type": "web_url",
-        #                         "url": res_url,
-        #                         "webview_height_ratio": "tall"                            },
-        #                     "buttons":[
-        #                     {
-        #                         "type":"web_url",
-        #                         "url":res_menu,
-        #                         "title":"Restaurant Menu"
-        #                     }
-        #                     ]
-        #                 }
-        #                 ]
-        #             } #payload
-        #         } #attachment
-        #         } # facebook
-        #         } #payload
-        #     }
-        #     ] #messages
-        # }
-        # tempresp = {
-        #     "messages" : [
-        #         {
-        #             "type": 1,
-        #             "title": res_name,
-        #             "subtitle": res_addr,
-        #             "buttons": [
-        #             {
-        #                 "text" : "More Info",
-        #                 "postback" : res_url
-        #             }
-        #             ]
-        #         }
-        #     ]
-        # }
+
         messages = []
 
-        for restaurant in sample_list:
+        for restaurant in restaurant_list:
             tempresp = {}
             tempresp = {
                 "type": 4,
@@ -156,10 +100,8 @@ def get_hotel_info(request):
                     }
                 }
             }
-
-            #print (tempresp)
             messages.append(tempresp)
-        print (messages)
+
         response = {
             "messages" : messages
         }

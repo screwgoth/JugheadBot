@@ -1,6 +1,7 @@
 import os
 import logging
 import requests
+import json
 
 
 class Zomat(object):
@@ -13,7 +14,6 @@ class Zomat(object):
         self.logger.debug("Initialzing Zomat class")
         self.userKey = os.environ.get("USER_KEY")
         #self.logger.debug("user-key = ", self.userKey)
-
 
     def getLocation(self, location):
         """

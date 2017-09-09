@@ -10,6 +10,7 @@ class Zomat(object):
     """
 
     def __init__(self):
+        logging.basicConfig(level=logging.DEBUG)
         self.logger = logging.getLogger("Zomat")
         self.logger.debug("Initialzing Zomat class")
         self.userKey = os.environ.get("USER_KEY")

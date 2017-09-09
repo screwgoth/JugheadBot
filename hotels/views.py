@@ -28,17 +28,10 @@ def get_hotel_info(request):
         if loc_json['geo-city']:
             loc = loc_json['geo-city']
             print (loc)
-        headers={"Accept":"applicaiton/json",
-        "user-key": "b0fcc8e574f96ad3e80be23d898aa861"}
-        search_url = "https://developers.zomato.com/api/v2.1/locations?query="+loc
-        search_resp=requests.get(search_url,headers=headers)
-        search_resp_dict=json.loads(search_resp.text)
-        loc_sug_list = search_resp_dict['location_suggestions']
-        for loc_sug in loc_sug_list:
-            entity_type = loc_sug["entity_type"]
-            print (entity_type)
-            entity_id = loc_sug["entity_id"]
-            print (entity_id)
+        zom = Zomat()
+        entity_id, entity_type = zom.getLocation(loc)
+        print ("entity_id = ",entity_id, ", entity_type = ", entity_type)
+
 
         zomato_url="https://developers.zomato.com/api/v2.1/search?entity_id="+str(entity_id)+"&entity_type="+str(entity_type)+"&count=5&sort=rating&order=desc"
         resp=requests.get(zomato_url,headers=headers)

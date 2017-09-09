@@ -13,7 +13,7 @@ class Zomat(object):
         self.logger = logging.getLogger("Zomat")
         self.logger.debug("Initialzing Zomat class")
         self.userKey = os.environ.get("USER_KEY")
-        self.headers={"Accept":"application/json", "user-key": "b0fcc8e574f96ad3e80be23d898aa861"}
+        self.headers={"Accept":"application/json", "user-key": self.userKey}
         #self.logger.debug("user-key = ", self.userKey)
 
     def getLocation(self, location):
@@ -27,6 +27,7 @@ class Zomat(object):
         for loc_sug in loc_sug_list:
             entity_type = loc_sug["entity_type"]
             print (entity_type)
+            self.logger.debug(entity_type)
             entity_id = loc_sug["entity_id"]
             print (entity_id)
         return entity_id, entity_type

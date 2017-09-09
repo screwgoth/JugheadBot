@@ -33,21 +33,9 @@ def get_hotel_info(request):
         entity_id, entity_type = zom.getLocation(loc)
         print ("entity_id = ",entity_id, ", entity_type = ", entity_type)
 
-
-        zomato_url="https://developers.zomato.com/api/v2.1/search?entity_id="+str(entity_id)+"&entity_type="+str(entity_type)+"&count=5&sort=rating&order=desc"
-        resp=requests.get(zomato_url,headers=headers)
-        resp_dict=json.loads(resp.text)
-        restaurants = (resp_dict['restaurants'])
-        elements1 = []
         restaurant_list = []
-        for i in restaurants:
-            zomato_dict = {}
-            zomato_dict['res_name'] = i['restaurant']['name']
-            zomato_dict['res_addr'] = i['restaurant']['location']['address']
-            zomato_dict['res_url'] = i['restaurant']['url']
-            zomato_dict['res_photo'] = i['restaurant']['featured_image']
-            zomato_dict['res_menu'] = i['restaurant']['menu_url']
-            restaurant_list.append(zomato_dict)
+        restaurant_list = zom.getBestRestaurants(entity_id, entity_type)
+        
 
         # tempresp= {
         #     "messages": [

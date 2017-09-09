@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from rest_framework import status
 import requests
 import json
+import zomat
 
 @api_view(['GET','POST'])
 def get_hotel_info(request):

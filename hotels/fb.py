@@ -20,7 +20,7 @@ class FB(object):
             self.logger.info("Speech Response present")
             tempresp = {
                 "type": 0,
-                "speech": speech
+                "speech": speech,
                 "text": text
             }
         else:

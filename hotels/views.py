@@ -6,6 +6,7 @@ from rest_framework import status
 import requests
 import json
 from hotels.zomat import Zomat
+from hotels.fb import FB
 
 @api_view(['GET','POST'])
 def get_hotel_info(request):
@@ -51,46 +52,49 @@ def get_hotel_info(request):
         #     ]
         # }
 
-        messages = []
-
-        for restaurant in restaurant_list:
-            tempresp = {}
-            tempresp = {
-                "type": 4,
-                "payload": {
-                    "facebook": {
-                        "attachment": {
-                            "type": "template",
-                            "payload": {
-                                "template_type": "generic",
-                                "elements": [
-                                    {
-                                        "title": restaurant["res_name"],
-                                        "image_url": restaurant["res_photo"],
-                                        "subtitle": restaurant["res_addr"],
-                                        "default_action": {
-                                                            "type": "web_url",
-                                                            "url": restaurant["res_url"],
-                                                            "webview_height_ratio": "tall"
-                                                          },
-                                        "buttons": [
-                                                    {
-                                                        "type": "web_url",
-                                                        "url": restaurant["res_menu"],
-                                                        "title": "Restaurant Menu"
-                                                    }
-                                                    ]
-                                    }
-                                ]
-                            }
-                        }
-                    }
-                }
-            }
-            messages.append(tempresp)
-
-        response = {
-            "messages" : messages
-        }
-        print (response)
+        # messages = []
+        #
+        # for restaurant in restaurant_list:
+        #     tempresp = {}
+        #     tempresp = {
+        #         "type": 4,
+        #         "payload": {
+        #             "facebook": {
+        #                 "attachment": {
+        #                     "type": "template",
+        #                     "payload": {
+        #                         "template_type": "generic",
+        #                         "elements": [
+        #                             {
+        #                                 "title": restaurant["res_name"],
+        #                                 "image_url": restaurant["res_photo"],
+        #                                 "subtitle": restaurant["res_addr"],
+        #                                 "default_action": {
+        #                                                     "type": "web_url",
+        #                                                     "url": restaurant["res_url"],
+        #                                                     "webview_height_ratio": "tall"
+        #                                                   },
+        #                                 "buttons": [
+        #                                             {
+        #                                                 "type": "web_url",
+        #                                                 "url": restaurant["res_menu"],
+        #                                                 "title": "Restaurant Menu"
+        #                                             }
+        #                                             ]
+        #                             }
+        #                         ]
+        #                     }
+        #                 }
+        #             }
+        #         }
+        #     }
+        #     messages.append(tempresp)
+        #
+        # response = {
+        #     "messages" : messages
+        # }
+        # print (response)
+        fb = FB()
+        response = fb.textMessage("Give me a minute to fetch the list")
+        response = fb.cardMessage(restaurant_list)
         return Response(response)

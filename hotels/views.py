@@ -42,61 +42,9 @@ def get_hotel_info(request):
         restaurant_list = []
         restaurant_list = zom.getBestRestaurants(entity_id, entity_type)
 
-
-        # tempresp= {
-        #     "messages": [
-        #                 {
-        #                     "type": 0,
-        #                     "speech": disp_cat
-        #                 }
-        #     ]
-        # }
-
-        # messages = []
-        #
-        # for restaurant in restaurant_list:
-        #     tempresp = {}
-        #     tempresp = {
-        #         "type": 4,
-        #         "payload": {
-        #             "facebook": {
-        #                 "attachment": {
-        #                     "type": "template",
-        #                     "payload": {
-        #                         "template_type": "generic",
-        #                         "elements": [
-        #                             {
-        #                                 "title": restaurant["res_name"],
-        #                                 "image_url": restaurant["res_photo"],
-        #                                 "subtitle": restaurant["res_addr"],
-        #                                 "default_action": {
-        #                                                     "type": "web_url",
-        #                                                     "url": restaurant["res_url"],
-        #                                                     "webview_height_ratio": "tall"
-        #                                                   },
-        #                                 "buttons": [
-        #                                             {
-        #                                                 "type": "web_url",
-        #                                                 "url": restaurant["res_menu"],
-        #                                                 "title": "Restaurant Menu"
-        #                                             }
-        #                                             ]
-        #                             }
-        #                         ]
-        #                     }
-        #                 }
-        #             }
-        #         }
-        #     }
-        #     messages.append(tempresp)
-        #
-        # response = {
-        #     "messages" : messages
-        # }
-        # print (response)
         fb = FB()
         messages = []
-        messages = fb.textMessage(messages, "Give me a minute to fetch the list")
+        messages = fb.textMessage(messages, "Alrighty !! Fetching your list")
         messages = fb.cardMessage(messages, restaurant_list)
         response = {
             "messages" : messages

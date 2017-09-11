@@ -95,6 +95,6 @@ def get_hotel_info(request):
         # }
         # print (response)
         fb = FB()
-        response = fb.textMessage("Give me a minute to fetch the list")
+        response1 = fb.textMessage("Give me a minute to fetch the list")
         response = fb.cardMessage(restaurant_list)
-        return Response(response)
+        return Response(response, response1)

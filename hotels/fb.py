@@ -16,17 +16,17 @@ class FB(object):
         Simple Text message Response
         """
         messages = []
-        if ! speech:
-            self.logger.info("No Speech Response")
-            tempresp = {
-                "type": 0,
-                "text": text
-            }
-        else:
+        if speech:
             self.logger.info("Speech Response present")
             tempresp = {
                 "type": 0,
                 "speech": speech
+                "text": text
+            }
+        else:
+            self.logger.info("No Speech Response")
+            tempresp = {
+                "type": 0,
                 "text": text
             }
 

@@ -11,29 +11,18 @@ class FB(object):
         self.logger = logging.getLogger("Facebook")
         self.logger.info("Initialized Facebook Class")
 
-    def textMessage(self, messages, text, speech=""):
+    def textMessage(self, messages, text):
         """
         Simple Text message Response
         """
-        if speech:
-            self.logger.info("Speech Response present")
-            tempresp = {
-                "type": 0,
-                "speech": speech,
-                "text": text
-            }
-        else:
-            self.logger.info("No Speech Response")
-            tempresp = {
-                "type": 0,
-                "speech": text
-            }
-
+        self.logger.info("No Speech Response")
+        tempresp = {
+            "type": 0,
+            "speech": text
+        }
         messages.append(tempresp)
-        # response = {
-        #     "messages" : messages
-        # }
-        # self.logger.info("Response : %s", response)
+        self.logger.info("Appended FB Text messages")
+
         return messages
 
     def cardMessage(self, messages, restaurant_list):

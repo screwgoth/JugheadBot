@@ -35,7 +35,7 @@ def get_hotel_info(request):
             print (area)
             loc = area + " " + loc
         zom = Zomat()
-        entity_id, entity_type = zom.getLocation(loc)
+        entity_id, entity_type = zom.getLocation(str(loc))
         print ("entity_id = ",entity_id, ", entity_type = ", entity_type)
 
         restaurant_list = []

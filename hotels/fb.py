@@ -11,11 +11,10 @@ class FB(object):
         self.logger = logging.getLogger("Facebook")
         self.logger.info("Initialized Facebook Class")
 
-    def textMessage(self, text, speech=""):
+    def textMessage(self, messages, text, speech=""):
         """
         Simple Text message Response
         """
-        messages = []
         if speech:
             self.logger.info("Speech Response present")
             tempresp = {
@@ -31,17 +30,16 @@ class FB(object):
             }
 
         messages.append(tempresp)
-        response = {
-            "messages" : messages
-        }
-        self.logger.info("Response : %s", response)
-        return response
+        # response = {
+        #     "messages" : messages
+        # }
+        # self.logger.info("Response : %s", response)
+        return messages
 
-    def cardMessage(self, restaurant_list):
+    def cardMessage(self, messages, restaurant_list):
         """
         Facebook Cards Response
         """
-        messages = []
 
         for restaurant in restaurant_list:
             tempresp = {}
@@ -79,8 +77,8 @@ class FB(object):
             }
             messages.append(tempresp)
 
-        response = {
-            "messages" : messages
-        }
-        self.logger.info("Response : %s", response)
-        return response
+        # response = {
+        #     "messages" : messages
+        # }
+        # self.logger.info("Response : %s", response)
+        return messages

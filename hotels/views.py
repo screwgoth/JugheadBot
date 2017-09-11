@@ -95,6 +95,11 @@ def get_hotel_info(request):
         # }
         # print (response)
         fb = FB()
-        response1 = fb.textMessage("Give me a minute to fetch the list")
-        response = fb.cardMessage(restaurant_list)
-        return Response(response, response1)
+        messages = []
+        messages = fb.textMessage(messages, "Give me a minute to fetch the list")
+        messages = fb.cardMessage(messages, restaurant_list)
+        response = {
+            "messages" : messages
+        }
+        self.logger.info("Response : %s", response)
+        return Response(response)

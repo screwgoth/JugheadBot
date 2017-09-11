@@ -77,6 +77,7 @@ class FB(object):
             }
             messages.append(tempresp)
 
+        self.logger.info("Appended FB card messages")
         # response = {
         #     "messages" : messages
         # }

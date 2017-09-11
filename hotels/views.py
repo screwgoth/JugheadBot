@@ -33,7 +33,7 @@ def get_hotel_info(request):
         if loc_json['any']:
             area = loc_json['any']
             print (area)
-            loc += area
+            loc = loc + " " + area
         zom = Zomat()
         entity_id, entity_type = zom.getLocation(loc)
         print ("entity_id = ",entity_id, ", entity_type = ", entity_type)

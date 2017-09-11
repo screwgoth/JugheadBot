@@ -19,6 +19,7 @@ class Zomat(object):
         """
         Get Zomato entity_id and entity_type
         """
+        self.logger.info("Looking up for location : ", location)
         search_url = "https://developers.zomato.com/api/v2.1/locations?query="+location
         search_resp = requests.get(search_url,headers=self.headers)
         search_resp_dict = json.loads(search_resp.text)

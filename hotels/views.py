@@ -27,15 +27,20 @@ def get_hotel_info(request):
         body = json.loads(body_unicode)
         loc_json = body['result']['parameters']
         if loc_json['geo-city']:
-            loc = loc_json['geo-city']
-            print (loc)
+            city = loc_json['geo-city']
+            loc = city
+            print (city)
+        if loc_json['any']:
+            area = loc_json['any']
+            print (area)
+            loc += area
         zom = Zomat()
         entity_id, entity_type = zom.getLocation(loc)
         print ("entity_id = ",entity_id, ", entity_type = ", entity_type)
 
         restaurant_list = []
         restaurant_list = zom.getBestRestaurants(entity_id, entity_type)
-        
+
 
         # tempresp= {
         #     "messages": [

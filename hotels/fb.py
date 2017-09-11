@@ -26,7 +26,7 @@ class FB(object):
             self.logger.info("No Speech Response")
             tempresp = {
                 "type": 0,
-                "text": text
+                "speech": text
             }
 
         messages.append(tempresp)

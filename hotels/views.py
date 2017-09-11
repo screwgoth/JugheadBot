@@ -101,5 +101,5 @@ def get_hotel_info(request):
         response = {
             "messages" : messages
         }
-        self.logger.info("Response : %s", response)
+        print(response)
         return Response(response)

@@ -21,7 +21,7 @@ class FB(object):
     def isFacebook (self, senderID = 0):
         if self.source == "facebook":
             self.logger.info("Source IS facebook")
-            if senderId == 0:
+            if senderID == 0:
                 self.sender_id = self.body['originalRequest']['data']['sender']['id']
             return True
         else:

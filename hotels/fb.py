@@ -1,15 +1,33 @@
 import os
 import logging
+import requests
 
 class FB(object):
     """
     Create Facebook Responses
     """
 
-    def __init__ (self):
+    def __init__ (self, body):
         logging.basicConfig(level=logging.INFO)
         self.logger = logging.getLogger("Facebook")
         self.logger.info("Initialized Facebook Class")
+        self.source = body['originalRequest']['source']
+        self.page_access_token = os.environ.get("PAGE_ACCESS_TOKEN")
+        self.facebook_url = "https://graph.facebook.com/v2.10/me/messages"
+
+    def isFacebook (self):
+        if self.source == 'facebook':
+            self.sender_id = body['originalRequest']['sender']['id']
+            return True
+        return False
+
+    def independantTextMessage(self, senderId, text):
+        headers = {"Content-Type":"application/json"}
+        params = {"access_token":self.page_access_token}
+        data = json.dumps({"recipient":{"id":senderId}, "message":{"text":text}})
+
+        status = requests.post(self.facebook_url,params=params,headers=headers,data=data)
+        self.logger.info("status_code = %s, status_text = %s", status.status_code, status.text)
 
     def textMessage(self, messages, text):
         """

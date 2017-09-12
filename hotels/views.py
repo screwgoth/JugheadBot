@@ -26,6 +26,9 @@ def get_hotel_info(request):
         print (request.body)
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
+        fb = FB(body)
+        if fb.isFacebook:
+            fb.independantTextMessage("I love Burgers !!!")
         loc_json = body['result']['parameters']
         if loc_json['geo-city']:
             city = loc_json['geo-city']
@@ -42,7 +45,7 @@ def get_hotel_info(request):
         restaurant_list = []
         restaurant_list = zom.getBestRestaurants(entity_id, entity_type)
 
-        fb = FB()
+
         messages = []
         messages = fb.textMessage(messages, "Alrighty !! Fetching your list")
         messages = fb.cardMessage(messages, restaurant_list)

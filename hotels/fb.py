@@ -13,6 +13,8 @@ class FB(object):
         self.logger = logging.getLogger("Facebook")
         self.logger.info("Initialized Facebook Class")
         self.source = body['originalRequest']['source']
+        self.logger.info("%s", body)
+        self.logger.info("Source is : %s", self.source)
         self.page_access_token = os.environ.get("PAGE_ACCESS_TOKEN")
         self.facebook_url = "https://graph.facebook.com/v2.10/me/messages"
         self.sender_id = 0

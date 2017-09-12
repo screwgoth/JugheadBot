@@ -28,8 +28,8 @@ def get_hotel_info(request):
         body = json.loads(body_unicode)
         fb = FB(body)
         if fb.isFacebook:
-            print ("sender_id = %s", fb.sender_id)
-            print ("recipient_id = %s", fb.recipient_id)
+            print ("sender_id = ", fb.sender_id)
+            print ("recipient_id = ", fb.recipient_id)
             fb.independantTextMessage(fb.sender_id, "I love Burgers !!!")
         loc_json = body['result']['parameters']
         if loc_json['geo-city']:

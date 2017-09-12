@@ -27,7 +27,7 @@ def get_hotel_info(request):
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
         fb = FB(body)
-        if fb.isFacebook:
+        if fb.isFacebook():
             print ("sender_id = ", fb.sender_id)
             print ("recipient_id = ", fb.recipient_id)
             fb.independantTextMessage(fb.sender_id, "I love Burgers !!!")

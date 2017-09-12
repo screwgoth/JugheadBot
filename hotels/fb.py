@@ -11,21 +11,18 @@ class FB(object):
     def __init__ (self, body):
         logging.basicConfig(level=logging.INFO)
         self.logger = logging.getLogger("Facebook")
-        self.logger.info("Initialized Facebook Class")
         self.body = body
         self.source = self.body['originalRequest']['source']
-        self.logger.info("%s", body)
         self.logger.info("Source is : %s", self.source)
         self.page_access_token = os.environ.get("PAGE_ACCESS_TOKEN")
         self.facebook_url = "https://graph.facebook.com/v2.10/me/messages"
         self.sender_id = 0
-        self.recipient_id = 0
 
-    def isFacebook (self):
+    def isFacebook (self, senderID = 0):
         if self.source == "facebook":
             self.logger.info("Source IS facebook")
-            self.sender_id = self.body['originalRequest']['data']['sender']['id']
-            self.recipient_id = self.body['originalRequest']['data']['recipient']['id']
+            if senderId == 0:
+                self.sender_id = self.body['originalRequest']['data']['sender']['id']
             return True
         else:
             self.logger.info("Source is NOT facebook")

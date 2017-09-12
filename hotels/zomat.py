@@ -31,9 +31,14 @@ class Zomat(object):
                 self.logger.info("entity_id = %d, entity_type = %s", entity_id, entity_type)
         return entity_id, entity_type
 
-    def getBestRestaurants(self, entity_id, entity_type):
+    def getBestRestaurants(self, entity_id, entity_type, cuisine_id = 0):
         restaurant_list = []
-        zomato_url = "https://developers.zomato.com/api/v2.1/search?entity_id="+str(entity_id)+"&entity_type="+str(entity_type)+"&count=5&sort=rating&order=desc"
+        if cuisine_id == 0:
+            self.logger.info("No specific cuisine")
+            zomato_url = "https://developers.zomato.com/api/v2.1/search?entity_id="+str(entity_id)+"&entity_type="+str(entity_type)+"&count=5&sort=rating&order=desc"
+        else:
+            self.logger.info("Finding Restaurants as per cuisines")
+            zomato_url = "https://developers.zomato.com/api/v2.1/search?entity_id="+str(entity_id)+"&entity_type="+str(entity_type)+"&count=5&radius=5000&cuisines="+str(cuisine_id)+"&sort=rating&order=desc"
         resp = requests.get(zomato_url,headers=self.headers)
         resp_dict = json.loads(resp.text)
         restaurants = (resp_dict['restaurants'])
@@ -47,3 +52,35 @@ class Zomat(object):
             zomato_dict['res_menu'] = i['restaurant']['menu_url']
             restaurant_list.append(zomato_dict)
         return restaurant_list
+
+    def getCityID(self, city):
+        """
+        Get Zomato ID and other info for a City
+        """
+        city_id = 0
+        zomato_url = "https://developers.zomato.com/api/v2.1/cities?q="+city
+        resp = requests.get(zomato_url,headers=self.headers)
+        resp_dict = json.loads(resp.text)
+        # Assuming there is only one entry for this City
+        city_id = resp_dict['location_suggestions'][0]['id']
+        self.logger.info("For City : %s, got city_id = %d", city, city_id)
+        return city_id
+
+    def getCuisineID(self, city, cuisine):
+        """
+        Get the Zomate Cuisine ID
+        """
+        city_id = self.getCityID(city)
+        if city_id != 0:
+            zomato_url = "https://developers.zomato.com/api/v2.1/cuisines?city_id="+str(city_id)
+            resp = requests.get(zomato_url,headers=self.headers)
+            resp_dict = json.loads(resp.text)
+            cusines = (resp_dict['cuisines'])
+            for zcuisine in cusines:
+                if lower(cuisine) == lower(zcuisine['cuisine']['cuisine_name']):
+                    self.logger.info("For Cuisine : %s, cuisine_id = %d", cuisine, zcuisine['cuisine']['cuisine_id'])
+                    return zcuisine['cuisine']['cuisine_id']
+
+        # Cuisine not found
+        self.logger.info("Cuisine, %s, not found for city %s", cuisine, city)
+        return 0

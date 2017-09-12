@@ -31,21 +31,29 @@ def get_hotel_info(request):
         # if fb.isFacebook():
         #     fb.independantTextMessage(fb.sender_id, "I love Burgers !!!")
 
-        loc_json = body['result']['parameters']
-        if loc_json['geo-city']:
-            city = loc_json['geo-city']
+        query_json = body['result']['parameters']
+        if query_json['geo-city']:
+            city = query_json['geo-city']
             loc = city
             print (city)
-        if loc_json['any']:
-            area = loc_json['any']
+        if query_json['area']:
+            area = query_json['area']
             print (area)
             loc = area + " " + loc
+        cuisine = str()
+        if query_json['Cuisines']:
+            cuisine = query_json['Cuisines']
+            print (cuisine)
         zom = Zomat()
         entity_id, entity_type = zom.getLocation(str(loc))
         print ("entity_id = ",entity_id, ", entity_type = ", entity_type)
 
         restaurant_list = []
-        restaurant_list = zom.getBestRestaurants(entity_id, entity_type)
+        if not cuisine:
+            restaurant_list = zom.getBestRestaurants(entity_id, entity_type)
+        else:
+            cuisine_id = zom.getCuisineID(city, cuisine)
+            restaurant_list = zom.getBestRestaurants(entity_id, entity_type, cuisine_id)
 
 
         messages = []

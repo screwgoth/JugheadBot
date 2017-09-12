@@ -24,8 +24,8 @@ class FB(object):
     def isFacebook (self):
         if self.source == "facebook":
             self.logger.info("Source IS facebook")
-            self.sender_id = self.body['originalRequest']['sender']['id']
-            self.recipient_id = self.body['originalRequest']['recipient']['id']
+            self.sender_id = self.body['originalRequest']['data']['sender']['id']
+            self.recipient_id = self.body['originalRequest']['data']['recipient']['id']
             return True
         else:
             self.logger.info("Source is NOT facebook")

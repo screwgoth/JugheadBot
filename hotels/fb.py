@@ -132,9 +132,9 @@ class FB(object):
         Get User info
         """
         headers = {"Content-Type":"application/json"}
-        params = {"access_token":self.page_access_token}
-        fields = "fields=first_name,last_name,profile_pic,timezone,gender,is_payment_enabled,last_ad_referral"
-        final_fb_url = self.facebook_user_url + userID + "?" + fields
+        fields = "first_name,last_name,profile_pic,timezone,gender,is_payment_enabled,last_ad_referral"
+        params = {"fields": fields, "access_token":self.page_access_token}
+        final_fb_url = self.facebook_user_url + userID
         self.logger.info("Final FB URL for user : %s", final_fb_url)
-        status = requests.post(final_fb_url,params=params,headers=headers)
+        status = requests.get(final_fb_url,params=params,headers=headers)
         self.logger.info("status_code = %s, status_text = %s", status.status_code, status.text)

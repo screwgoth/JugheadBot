@@ -21,10 +21,13 @@ class FB(object):
         self.recipient_id = 0
 
     def isFacebook (self):
-        if self.source == 'facebook':
+        if self.source == "facebook":
+            self.logger.info("Source IS facebook")
             self.sender_id = body['originalRequest']['sender']['id']
             self.recipient_id = body['originalRequest']['recipient']['id']
             return True
+        else:
+            self.logger.info("Source is NOT facebook")
         return False
 
     def independantTextMessage(self, senderId, text):

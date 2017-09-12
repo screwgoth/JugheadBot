@@ -49,8 +49,10 @@ def get_hotel_info(request):
         messages = []
         messages = fb.textMessage(messages, "Alrighty !! Fetching your list")
         messages = fb.cardMessage(messages, restaurant_list)
+        messages = fb.imageMessage(messages, "https://blog.magicpin.in/wp-content/uploads/2017/07/pizza.jpg")
         response = {
             "messages" : messages
         }
         print(response)
+        fb.getUserInfo(fb.sender_id)
         return Response(response)

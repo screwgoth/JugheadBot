@@ -15,7 +15,8 @@ class FB(object):
         self.source = self.body['originalRequest']['source']
         self.logger.info("Source is : %s", self.source)
         self.page_access_token = os.environ.get("PAGE_ACCESS_TOKEN")
-        self.facebook_url = "https://graph.facebook.com/v2.10/me/messages"
+        self.facebook_message_url = "https://graph.facebook.com/v2.10/me/messages"
+        self.facebook_user_url = "http://graph.facebook.com/v2.10/"
         self.sender_id = 0
 
     def isFacebook (self, senderID = 0):
@@ -33,7 +34,7 @@ class FB(object):
         params = {"access_token":self.page_access_token}
         data = json.dumps({"recipient":{"id":senderId}, "message":{"text":text}})
 
-        status = requests.post(self.facebook_url,params=params,headers=headers,data=data)
+        status = requests.post(self.facebook_message_url,params=params,headers=headers,data=data)
         self.logger.info("status_code = %s, status_text = %s", status.status_code, status.text)
 
     def textMessage(self, messages, text):
@@ -97,3 +98,42 @@ class FB(object):
         # }
         # self.logger.info("Response : %s", response)
         return messages
+
+    def imageMessage(self, messages, image_url = "" ):
+        """
+        Facebook Image card
+        """
+        if image_url == "":
+            self.logger.info("No Image URL provided")
+            return messages
+
+        tempresp = {}
+        tempresp = {
+            "type": 4,
+            "payload": {
+                "facebook": {
+                    "attachment": {
+                        "type": "image",
+                        "payload": {
+                            "url": image_url
+                        }
+                    }
+                }
+            }
+        }
+        messages.append(tempresp)
+        self.logger.info("Appended FB Image messages")
+        return messages
+
+
+    def getUserInfo(self, userID):
+        """
+        Get User info
+        """
+        headers = {"Content-Type":"application/json"}
+        params = {"access_token":self.page_access_token}
+        fields = "fields=first_name,last_name,profile_pic,timezone,gender,is_payment_enabled,last_ad_referral"
+        final_fb_url = self.facebook_user_url + userID + "?" + fields
+        self.logger.info("Final FB URL for user : %s", final_fb_url)
+        status = requests.post(final_fb_url,params=params,headers=headers)
+        self.logger.info("status_code = %s, status_text = %s", status.status_code, status.text)

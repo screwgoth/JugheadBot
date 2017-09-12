@@ -16,7 +16,7 @@ class FB(object):
         self.logger.info("Source is : %s", self.source)
         self.page_access_token = os.environ.get("PAGE_ACCESS_TOKEN")
         self.facebook_message_url = "https://graph.facebook.com/v2.10/me/messages"
-        self.facebook_user_url = "http://graph.facebook.com/v2.10/"
+        self.facebook_user_url = "https://graph.facebook.com/v2.10/"
         self.sender_id = 0
 
     def isFacebook (self, senderID = 0):

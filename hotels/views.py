@@ -6,6 +6,7 @@ from rest_framework import status
 import requests
 import json
 from hotels.zomat import Zomat
+from hotels.fb import FB
 
 @api_view(['GET','POST'])
 def get_hotel_info(request):
@@ -25,6 +26,11 @@ def get_hotel_info(request):
         print (request.body)
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
+        fb = FB(body)
+        # Reference independant FB message
+        # if fb.isFacebook():
+        #     fb.independantTextMessage(fb.sender_id, "I love Burgers !!!")
+
         loc_json = body['result']['parameters']
         if loc_json['geo-city']:
             city = loc_json['geo-city']
@@ -42,55 +48,18 @@ def get_hotel_info(request):
         restaurant_list = zom.getBestRestaurants(entity_id, entity_type)
 
 
-        # tempresp= {
-        #     "messages": [
-        #                 {
-        #                     "type": 0,
-        #                     "speech": disp_cat
-        #                 }
-        #     ]
-        # }
-
         messages = []
+        # Reference Text Message
+        #messages = fb.textMessage(messages, "Alrighty !! Fetching your list")
 
-        for restaurant in restaurant_list:
-            tempresp = {}
-            tempresp = {
-                "type": 4,
-                "payload": {
-                    "facebook": {
-                        "attachment": {
-                            "type": "template",
-                            "payload": {
-                                "template_type": "generic",
-                                "elements": [
-                                    {
-                                        "title": restaurant["res_name"],
-                                        "image_url": restaurant["res_photo"],
-                                        "subtitle": restaurant["res_addr"],
-                                        "default_action": {
-                                                            "type": "web_url",
-                                                            "url": restaurant["res_url"],
-                                                            "webview_height_ratio": "tall"
-                                                          },
-                                        "buttons": [
-                                                    {
-                                                        "type": "web_url",
-                                                        "url": restaurant["res_menu"],
-                                                        "title": "Restaurant Menu"
-                                                    }
-                                                    ]
-                                    }
-                                ]
-                            }
-                        }
-                    }
-                }
-            }
-            messages.append(tempresp)
+        # Update FB Card message with Restaurant list
+        messages = fb.cardMessage(messages, restaurant_list)
+
+        # Reference Image Message
+        #messages = fb.imageMessage(messages, "https://blog.magicpin.in/wp-content/uploads/2017/07/pizza.jpg")
 
         response = {
             "messages" : messages
         }
-        print (response)
+        print(response)
         return Response(response)

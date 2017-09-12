@@ -62,5 +62,4 @@ def get_hotel_info(request):
             "messages" : messages
         }
         print(response)
-        fb.getUserInfo(fb.sender_id)
         return Response(response)

@@ -77,7 +77,7 @@ class Zomat(object):
             resp_dict = json.loads(resp.text)
             cusines = (resp_dict['cuisines'])
             for zcuisine in cusines:
-                if lower(cuisine) == lower(zcuisine['cuisine']['cuisine_name']):
+                if cuisine.lower() == zcuisine['cuisine']['cuisine_name'].lower():
                     self.logger.info("For Cuisine : %s, cuisine_id = %d", cuisine, zcuisine['cuisine']['cuisine_id'])
                     return zcuisine['cuisine']['cuisine_id']
 

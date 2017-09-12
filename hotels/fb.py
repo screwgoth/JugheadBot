@@ -12,7 +12,8 @@ class FB(object):
         logging.basicConfig(level=logging.INFO)
         self.logger = logging.getLogger("Facebook")
         self.logger.info("Initialized Facebook Class")
-        self.source = body['originalRequest']['source']
+        self.body = body
+        self.source = self.body['originalRequest']['source']
         self.logger.info("%s", body)
         self.logger.info("Source is : %s", self.source)
         self.page_access_token = os.environ.get("PAGE_ACCESS_TOKEN")
@@ -23,8 +24,8 @@ class FB(object):
     def isFacebook (self):
         if self.source == "facebook":
             self.logger.info("Source IS facebook")
-            self.sender_id = body['originalRequest']['sender']['id']
-            self.recipient_id = body['originalRequest']['recipient']['id']
+            self.sender_id = self.body['originalRequest']['sender']['id']
+            self.recipient_id = self.body['originalRequest']['recipient']['id']
             return True
         else:
             self.logger.info("Source is NOT facebook")

@@ -53,7 +53,7 @@ def get_hotel_info(request):
             restaurant_list = zom.getBestRestaurants(entity_id, entity_type)
         else:
             cuisine_id = zom.getCuisineID(city, cuisine)
-            if cuisine_id = 0:
+            if cuisine_id == 0:
                 if fb.isFacebook():
                     fb.independantTextMessage(fb.sender_id, "Could not find Restaurants for your specific Cuisine. Could you maybe re-check the spelling and try again?")
 

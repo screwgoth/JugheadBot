@@ -17,7 +17,8 @@ class FB(object):
         self.page_access_token = os.environ.get("PAGE_ACCESS_TOKEN")
         self.facebook_message_url = "https://graph.facebook.com/v2.10/me/messages"
         self.facebook_user_url = "https://graph.facebook.com/v2.10/"
-        self.sender_id = 0
+        self.sender_id = self.body['originalRequest']['data']['sender']['id']
+        self.recipient_id = self.body['originalRequest']['data']['recipient']['id']
 
     def isFacebook (self, senderID = 0):
         if self.source == "facebook":

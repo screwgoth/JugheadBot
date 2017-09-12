@@ -27,8 +27,10 @@ def get_hotel_info(request):
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
         fb = FB(body)
-        if fb.isFacebook():
-            fb.independantTextMessage(fb.sender_id, "I love Burgers !!!")
+        # Reference independant FB message
+        # if fb.isFacebook():
+        #     fb.independantTextMessage(fb.sender_id, "I love Burgers !!!")
+
         loc_json = body['result']['parameters']
         if loc_json['geo-city']:
             city = loc_json['geo-city']
@@ -47,12 +49,18 @@ def get_hotel_info(request):
 
 
         messages = []
-        messages = fb.textMessage(messages, "Alrighty !! Fetching your list")
+        # Reference Text Message
+        #messages = fb.textMessage(messages, "Alrighty !! Fetching your list")
+
+        # Update FB Card message with Restaurant list
         messages = fb.cardMessage(messages, restaurant_list)
-        messages = fb.imageMessage(messages, "https://blog.magicpin.in/wp-content/uploads/2017/07/pizza.jpg")
+
+        # Reference Image Message
+        #messages = fb.imageMessage(messages, "https://blog.magicpin.in/wp-content/uploads/2017/07/pizza.jpg")
+
         response = {
             "messages" : messages
         }
         print(response)
-        fb.getUserInfo(fb.sender_id)
+        fb.getUserInfo(fb.recipient_id)
         return Response(response)

@@ -89,8 +89,15 @@ class Zomat(object):
         """
         Get the Zomato Restaurant ID
         """
+        res_id = 0
         zomato_url = "https://developers.zomato.com/api/v2.1/cities?q="+res_name
         resp = requests.get(zomato_url,headers=self.headers)
+        resp_dict = json.loads(resp.text)
+        restaurants = (resp_dict['restaurants'])
+
+        res_id = restaurants[0]['restaurant']['R']['res_id']
+
+        return res_id
 
 
 
@@ -98,3 +105,17 @@ class Zomat(object):
         """
         Get Reviews of the specified Restaurant
         """
+        res_id = self.getRestaurantID(res_name)
+        if res_id != 0:
+            zomato_url = "https://developers.zomato.com/api/v2.1/reviews?res_id="+str(res_id)+"&count=5"
+            resp = requests.get(zomato_url,headers=self.headers)
+            resp_dict = json.loads(resp.text)
+            user_reviews = (resp_dict['user_reviews'])
+
+            for ureview in user_reviews:
+                zomato_dict = {}
+                zomato_dict['rating'] = ureview['review']['rating']
+                zomato_dict['review_text'] = ureview['review']['review_text']
+                review_list.append(zomato_dict)
+
+            # Calculate the average, max and min rating

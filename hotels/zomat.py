@@ -84,3 +84,17 @@ class Zomat(object):
         # Cuisine not found
         self.logger.info("Cuisine, %s, not found for city %s", cuisine, city)
         return 0
+
+    def getRestaurantID(self, res_name):
+        """
+        Get the Zomato Restaurant ID
+        """
+        zomato_url = "https://developers.zomato.com/api/v2.1/cities?q="+res_name
+        resp = requests.get(zomato_url,headers=self.headers)
+
+
+
+    def getReviews(self, res_name):
+        """
+        Get Reviews of the specified Restaurant
+        """

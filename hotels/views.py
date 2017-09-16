@@ -41,7 +41,7 @@ def get_hotel_info(request):
             print (area)
             loc = area + " " + loc
         cuisine = str()
-        if query_json.has_key("Cuisines"):
+        if "Cuisines" in query_json:
             cuisine = query_json['Cuisines']
             print (cuisine)
         zom = Zomat()

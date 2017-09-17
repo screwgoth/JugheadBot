@@ -85,17 +85,23 @@ class Zomat(object):
         self.logger.info("Cuisine, %s, not found for city %s", cuisine, city)
         return 0
 
-    def getRestaurantID(self, res_name):
+    def getRestaurantID(self, res_name, entity_id = 0, entity_type = ""):
         """
         Get the Zomato Restaurant ID
         """
         res_id = 0
-        zomato_url = "https://developers.zomato.com/api/v2.1/cities?q="+res_name
+        if entity_id != 0 and not entity_type:
+            zomato_url = "https://developers.zomato.com/api/v2.1/search?q="+res_name
+        else:
+
         resp = requests.get(zomato_url,headers=self.headers)
         resp_dict = json.loads(resp.text)
         restaurants = (resp_dict['restaurants'])
 
-        res_id = restaurants[0]['restaurant']['R']['res_id']
+        for r in restaurants:
+            if res_name == r['restaurant']['name']
+            res_id = r['restaurant']['R']['res_id']
+            self.logger.info("For %s, Restaurant ID = %d", res_name, res_id)
 
         return res_id
 

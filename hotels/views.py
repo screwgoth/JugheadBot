@@ -28,6 +28,9 @@ def get_hotel_info(request):
         body = json.loads(body_unicode)
         fb = FB(body)
         zom = Zomat()
+        loc = str()
+        entity_id = 0
+        entity_type = str()
 
         query_json = body['result']['parameters']
         if query_json['geo-city']:

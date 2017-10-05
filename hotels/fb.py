@@ -33,6 +33,11 @@ class FB(object):
         return False
 
     def independantTextMessage(self, senderId, text):
+        """
+        Reference independant FB message
+        if fb.isFacebook():
+           fb.independantTextMessage(fb.sender_id, "I love Burgers !!!")
+        """
         headers = {"Content-Type":"application/json"}
         params = {"access_token":self.page_access_token}
         data = json.dumps({"recipient":{"id":senderId}, "message":{"text":text}})
@@ -43,6 +48,8 @@ class FB(object):
     def textMessage(self, messages, text):
         """
         Simple Text message Response
+        Reference Text Message:
+        messages = fb.textMessage(messages, "Alrighty !! Fetching your list")
         """
         self.logger.info("No Speech Response")
         tempresp = {
@@ -71,19 +78,19 @@ class FB(object):
                                 "template_type": "generic",
                                 "elements": [
                                     {
-                                        "title": restaurant["res_name"],
-                                        "image_url": restaurant["res_photo"],
-                                        "subtitle": restaurant["res_addr"],
+                                        "title": restaurant["fbcard_name"],
+                                        "image_url": restaurant["fbcard_photo"],
+                                        "subtitle": restaurant["fbcard_subtitle"],
                                         "default_action": {
                                                             "type": "web_url",
-                                                            "url": restaurant["res_url"],
+                                                            "url": restaurant["fbcard_url"],
                                                             "webview_height_ratio": "tall"
                                                           },
                                         "buttons": [
                                                     {
                                                         "type": "web_url",
-                                                        "url": restaurant["res_menu"],
-                                                        "title": "Restaurant Menu"
+                                                        "url": restaurant["button_url"],
+                                                        "title": restaurant["button_title"]
                                                     }
                                                     ]
                                     }
@@ -105,6 +112,8 @@ class FB(object):
     def imageMessage(self, messages, image_url = "" ):
         """
         Facebook Image card
+        Reference Image Message:
+        messages = fb.imageMessage(messages, "https://blog.magicpin.in/wp-content/uploads/2017/07/pizza.jpg")
         """
         if image_url == "":
             self.logger.info("No Image URL provided")

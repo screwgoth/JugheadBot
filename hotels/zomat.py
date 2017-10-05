@@ -19,6 +19,8 @@ class Zomat(object):
         """
         Get Zomato entity_id and entity_type
         """
+        entity_id = 0
+        entity_type = str()
         self.logger.info("Looking up for location : %s", location)
         search_url = "https://developers.zomato.com/api/v2.1/locations?query="+location
         search_resp = requests.get(search_url,headers=self.headers)
@@ -42,14 +44,16 @@ class Zomat(object):
         resp = requests.get(zomato_url,headers=self.headers)
         resp_dict = json.loads(resp.text)
         restaurants = (resp_dict['restaurants'])
+        print ("Top 5 restaurants : ",restaurants)
 
         for i in restaurants:
             zomato_dict = {}
-            zomato_dict['res_name'] = i['restaurant']['name']
-            zomato_dict['res_addr'] = i['restaurant']['location']['address']
-            zomato_dict['res_url'] = i['restaurant']['url']
-            zomato_dict['res_photo'] = i['restaurant']['featured_image']
-            zomato_dict['res_menu'] = i['restaurant']['menu_url']
+            zomato_dict['fbcard_name'] = i['restaurant']['name']
+            zomato_dict['fbcard_subtitle'] = i['restaurant']['location']['address']
+            zomato_dict['fbcard_url'] = i['restaurant']['url']
+            zomato_dict['fbcard_photo'] = i['restaurant']['featured_image']
+            zomato_dict['button_url'] = i['restaurant']['menu_url']
+            zomato_dict['button_title'] = "Restaurant Menu"
             restaurant_list.append(zomato_dict)
         return restaurant_list
 
@@ -85,37 +89,37 @@ class Zomat(object):
         self.logger.info("Cuisine, %s, not found for city %s", cuisine, city)
         return 0
 
-    def getRestaurantID(self, res_name):
+    def getReviews(self, res_name, entity_id = 0, entity_type = ""):
         """
-        Get the Zomato Restaurant ID
+        Get the review for the specified Restaurant
         """
+        self.logger.info("Restaurant review for : %s", res_name)
+        res_review = []
         res_id = 0
-        zomato_url = "https://developers.zomato.com/api/v2.1/cities?q="+res_name
+        if entity_id == 0 and not entity_type:
+            zomato_url = "https://developers.zomato.com/api/v2.1/search?q="+res_name
+        else:
+            zomato_url = "https://developers.zomato.com/api/v2.1/search?entity_id="+str(entity_id)+"&entity_type="+entity_type+"&q="+res_name
+
         resp = requests.get(zomato_url,headers=self.headers)
         resp_dict = json.loads(resp.text)
         restaurants = (resp_dict['restaurants'])
+        print ("Found restaurants : ",restaurants)
 
-        res_id = restaurants[0]['restaurant']['R']['res_id']
-
-        return res_id
-
-
-
-    def getReviews(self, res_name):
-        """
-        Get Reviews of the specified Restaurant
-        """
-        res_id = self.getRestaurantID(res_name)
-        if res_id != 0:
-            zomato_url = "https://developers.zomato.com/api/v2.1/reviews?res_id="+str(res_id)+"&count=5"
-            resp = requests.get(zomato_url,headers=self.headers)
-            resp_dict = json.loads(resp.text)
-            user_reviews = (resp_dict['user_reviews'])
-
-            for ureview in user_reviews:
+        for r in restaurants:
+            print (r['restaurant']['name'])
+            # Sometimes the queries will contains results where the Restaurant
+            # name is part of the address. So check specifically for the name
+            if res_name == r['restaurant']['name']:
                 zomato_dict = {}
-                zomato_dict['rating'] = ureview['review']['rating']
-                zomato_dict['review_text'] = ureview['review']['review_text']
-                review_list.append(zomato_dict)
+                res_id = r['restaurant']['R']['res_id']
+                self.logger.info("For %s, Restaurant ID = %d", res_name, res_id)
+                zomato_dict['fbcard_name'] = r['restaurant']['name']
+                zomato_dict['fbcard_subtitle'] = "Votes : " + str(r['restaurant']['user_rating']['votes']) + "\n" + "Average Cost for Two : " + str(r['restaurant']['average_cost_for_two'])
+                zomato_dict['fbcard_url'] = r['restaurant']['url']
+                zomato_dict['fbcard_photo'] = r['restaurant']['featured_image']
+                zomato_dict['button_url'] = r['restaurant']['menu_url']
+                zomato_dict['button_title'] = "Rating : " + r['restaurant']['user_rating']['aggregate_rating'] + " (" + r['restaurant']['user_rating']['rating_text'] + ")"
+                res_review.append(zomato_dict)
 
-            # Calculate the average, max and min rating
+        return res_review

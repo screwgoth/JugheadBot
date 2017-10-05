@@ -41,7 +41,7 @@ def get_hotel_info(request):
                 fb.independantTextMessage(fb.sender_id, "You can ask me following questions:")
                 fb.independantTextMessage(fb.sender_id, "\"Which are the best Restaurants in Kothrud, Pune\"")
                 fb.independantTextMessage(fb.sender_id, "\"Which are the best Chinese Restaurants in Dadar, Mumbai\"")
-                fb.independantTextMessage(fb.sender_id), "\"What is the review of Blue Nile in Camp Area, Pune\""
+                fb.independantTextMessage(fb.sender_id, "\"What is the review of Blue Nile in Camp Area, Pune\"")
                 return Response("{}")
 
         if query_json['geo-city']:

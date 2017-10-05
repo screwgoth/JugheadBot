@@ -34,7 +34,7 @@ def get_hotel_info(request):
         entity_type = str()
 
         query_json = body['result']['parameters']
-        if "NEW_USER_STARTED" in body['originalRequest']['data']['postback']['payload']:
+        if body['originalRequest']['data']['postback'] and "NEW_USER_STARTED" in body['originalRequest']['data']['postback']['payload']:
             print("A new user")
             if fb.isFacebook():
                 fb.independantTextMessage(fb.sender_id, "Hey there, Foodie !!! I'm JugheadBot, your friendly neighbourhood Restaurant finding Bot")

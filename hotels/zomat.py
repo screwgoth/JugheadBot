@@ -19,6 +19,8 @@ class Zomat(object):
         """
         Get Zomato entity_id and entity_type
         """
+        entity_id = 0
+        entity_type = str()
         self.logger.info("Looking up for location : %s", location)
         search_url = "https://developers.zomato.com/api/v2.1/locations?query="+location
         search_resp = requests.get(search_url,headers=self.headers)
@@ -87,7 +89,7 @@ class Zomat(object):
 
     def getReviews(self, res_name, entity_id = 0, entity_type = ""):
         """
-        Get the Zomato Restaurant ID
+        Get the review for the specified Restaurant
         """
         res_review = []
         res_id = 0
@@ -99,6 +101,7 @@ class Zomat(object):
         resp = requests.get(zomato_url,headers=self.headers)
         resp_dict = json.loads(resp.text)
         restaurants = (resp_dict['restaurants'])
+        print ("Found restaurants : " + restaurants)
 
         for r in restaurants:
             # Sometimes the queries will contains results where the Restaurant

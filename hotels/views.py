@@ -49,7 +49,8 @@ def get_hotel_info(request):
             cuisine = query_json['Cuisines']
             print (cuisine)
             cuisine_id = zom.getCuisineID(city, cuisine)
-            if cuisine_id == 0:
+            print("cuisine_id = ", cuisine_id)
+            if int(cuisine_id) == 0:
                 messages = fb.textMessage(messages, "Could not find Restaurants for your specific Cuisine. Could you maybe re-check the spelling and try again?")
             else:
                 restaurant_list = zom.getBestRestaurants(entity_id, entity_type, cuisine_id)

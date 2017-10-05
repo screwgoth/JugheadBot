@@ -101,7 +101,7 @@ class Zomat(object):
         resp = requests.get(zomato_url,headers=self.headers)
         resp_dict = json.loads(resp.text)
         restaurants = (resp_dict['restaurants'])
-        print ("Found restaurants : " + restaurants)
+        print ("Found restaurants : ",restaurants)
 
         for r in restaurants:
             # Sometimes the queries will contains results where the Restaurant

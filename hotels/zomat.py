@@ -91,6 +91,7 @@ class Zomat(object):
         """
         Get the review for the specified Restaurant
         """
+        self.logger.info("Restaurant review for : %s", res_name)
         res_review = []
         res_id = 0
         if entity_id == 0 and not entity_type:
@@ -104,6 +105,7 @@ class Zomat(object):
         print ("Found restaurants : ",restaurants)
 
         for r in restaurants:
+            print (r['restaurant']['name'])
             # Sometimes the queries will contains results where the Restaurant
             # name is part of the address. So check specifically for the name
             if res_name == r['restaurant']['name']:

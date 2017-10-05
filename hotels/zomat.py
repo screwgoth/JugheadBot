@@ -47,11 +47,11 @@ class Zomat(object):
 
         for i in restaurants:
             zomato_dict = {}
-            zomato_dict['res_name'] = i['restaurant']['name']
-            zomato_dict['res_addr'] = i['restaurant']['location']['address']
-            zomato_dict['res_url'] = i['restaurant']['url']
-            zomato_dict['res_photo'] = i['restaurant']['featured_image']
-            zomato_dict['res_menu'] = i['restaurant']['menu_url']
+            zomato_dict['fbcard_name'] = i['restaurant']['name']
+            zomato_dict['fbcard_subtitle'] = i['restaurant']['location']['address']
+            zomato_dict['fbcard_url'] = i['restaurant']['url']
+            zomato_dict['fbcard_photo'] = i['restaurant']['featured_image']
+            zomato_dict['button_url'] = i['restaurant']['menu_url']
             zomato_dict['button_title'] = "Restaurant Menu"
             restaurant_list.append(zomato_dict)
         return restaurant_list
@@ -113,11 +113,11 @@ class Zomat(object):
                 zomato_dict = {}
                 res_id = r['restaurant']['R']['res_id']
                 self.logger.info("For %s, Restaurant ID = %d", res_name, res_id)
-                zomato_dict['res_name'] = r['restaurant']['name']
-                zomato_dict['res_addr'] = "Votes : " + str(r['restaurant']['user_rating']['votes']) + "\n" + "Average Cost for Two : " + str(r['restaurant']['average_cost_for_two'])
-                zomato_dict['res_url'] = r['restaurant']['url']
-                zomato_dict['res_photo'] = r['restaurant']['featured_image']
-                zomato_dict['res_menu'] = r['restaurant']['menu_url']
+                zomato_dict['fbcard_name'] = r['restaurant']['name']
+                zomato_dict['fbcard_subtitle'] = "Votes : " + str(r['restaurant']['user_rating']['votes']) + "\n" + "Average Cost for Two : " + str(r['restaurant']['average_cost_for_two'])
+                zomato_dict['fbcard_url'] = r['restaurant']['url']
+                zomato_dict['fbcard_photo'] = r['restaurant']['featured_image']
+                zomato_dict['button_url'] = r['restaurant']['menu_url']
                 zomato_dict['button_title'] = "Rating : " + r['restaurant']['user_rating']['aggregate_rating'] + " (" + r['restaurant']['user_rating']['rating_text'] + ")"
                 res_review.append(zomato_dict)
 

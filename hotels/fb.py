@@ -78,18 +78,18 @@ class FB(object):
                                 "template_type": "generic",
                                 "elements": [
                                     {
-                                        "title": restaurant["res_name"],
-                                        "image_url": restaurant["res_photo"],
-                                        "subtitle": restaurant["res_addr"],
+                                        "title": restaurant["fbcard_name"],
+                                        "image_url": restaurant["fbcard_photo"],
+                                        "subtitle": restaurant["fbcard_subtitle"],
                                         "default_action": {
                                                             "type": "web_url",
-                                                            "url": restaurant["res_url"],
+                                                            "url": restaurant["fbcard_url"],
                                                             "webview_height_ratio": "tall"
                                                           },
                                         "buttons": [
                                                     {
                                                         "type": "web_url",
-                                                        "url": restaurant["res_menu"],
+                                                        "url": restaurant["button_url"],
                                                         "title": restaurant["button_title"]
                                                     }
                                                     ]

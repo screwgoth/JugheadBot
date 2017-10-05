@@ -34,6 +34,9 @@ def get_hotel_info(request):
         entity_type = str()
 
         query_json = body['result']['parameters']
+        if "NEW_USER_STARTED" in query_json:
+            print("A new user")
+            
         if query_json['geo-city']:
             city = query_json['geo-city']
             loc = city

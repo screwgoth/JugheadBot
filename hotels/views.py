@@ -30,6 +30,7 @@ def get_hotel_info(request):
         zom = Zomat()
         loc = str()
         entity_id = 0
+        cuisine_id = 0
         entity_type = str()
 
         query_json = body['result']['parameters']

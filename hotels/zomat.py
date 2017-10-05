@@ -44,6 +44,7 @@ class Zomat(object):
         resp = requests.get(zomato_url,headers=self.headers)
         resp_dict = json.loads(resp.text)
         restaurants = (resp_dict['restaurants'])
+        print ("Top 5 restaurants : ",restaurants)
 
         for i in restaurants:
             zomato_dict = {}

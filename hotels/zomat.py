@@ -112,9 +112,9 @@ class Zomat(object):
                 zomato_dict = {}
                 res_id = r['restaurant']['R']['res_id']
                 self.logger.info("For %s, Restaurant ID = %d", res_name, res_id)
-                zomato_dict['res_name'] = r['restaurant']['user_rating']['aggregate_rating'] + " " + r['restaurant']['user_rating']['rating_text']
+                zomato_dict['res_name'] = "Rating : " + r['restaurant']['user_rating']['aggregate_rating'] + " (" + r['restaurant']['user_rating']['rating_text'] + ")"
                 review_subtitle = str()
-                review_subtitle = "Name : " + r['restaurant']['name'] + ", " + "Votes : " + str(r['restaurant']['user_rating']['votes']) + ", " + "Price Range : " + str(r['restaurant']['price_range'])
+                review_subtitle = "Name : " + r['restaurant']['name'] + ", " + "Votes : " + str(r['restaurant']['user_rating']['votes']) + ", " + "Price Range : " + str(r['restaurant']['price_range']) + "\nTest"
                 self.logger.info("review_subtitle  : %s", review_subtitle)
                 zomato_dict['res_addr'] = review_subtitle
                 zomato_dict['res_url'] = r['restaurant']['url']

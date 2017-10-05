@@ -90,7 +90,7 @@ class FB(object):
                                                     {
                                                         "type": "web_url",
                                                         "url": restaurant["res_menu"],
-                                                        "title": "Restaurant Menu"
+                                                        "title": restaurant["button_title"]
                                                     }
                                                     ]
                                     }

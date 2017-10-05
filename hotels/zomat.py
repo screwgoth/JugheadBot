@@ -52,6 +52,7 @@ class Zomat(object):
             zomato_dict['res_url'] = i['restaurant']['url']
             zomato_dict['res_photo'] = i['restaurant']['featured_image']
             zomato_dict['res_menu'] = i['restaurant']['menu_url']
+            zomato_dict['button_title'] = "Restaurant Menu"
             restaurant_list.append(zomato_dict)
         return restaurant_list
 
@@ -117,6 +118,7 @@ class Zomat(object):
                 zomato_dict['res_url'] = r['restaurant']['url']
                 zomato_dict['res_photo'] = r['restaurant']['featured_image']
                 zomato_dict['res_menu'] = r['restaurant']['menu_url']
+                zomato_dict['button_title'] = "Restaurant Rating"
                 res_review.append(zomato_dict)
 
         return res_review

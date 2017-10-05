@@ -85,43 +85,34 @@ class Zomat(object):
         self.logger.info("Cuisine, %s, not found for city %s", cuisine, city)
         return 0
 
-    def getRestaurantID(self, res_name, entity_id = 0, entity_type = ""):
+    def getReviews(self, res_name, entity_id = 0, entity_type = ""):
         """
         Get the Zomato Restaurant ID
         """
+        res_review = []
         res_id = 0
-        if entity_id != 0 and not entity_type:
+        if entity_id == 0 and not entity_type:
             zomato_url = "https://developers.zomato.com/api/v2.1/search?q="+res_name
         else:
+            zomato_url = "https://developers.zomato.com/api/v2.1/search?entity_id="+str(entity_id)+"&entity_type="+entity_type+"&q="+res_name
 
         resp = requests.get(zomato_url,headers=self.headers)
         resp_dict = json.loads(resp.text)
         restaurants = (resp_dict['restaurants'])
 
         for r in restaurants:
-            if res_name == r['restaurant']['name']
-            res_id = r['restaurant']['R']['res_id']
-            self.logger.info("For %s, Restaurant ID = %d", res_name, res_id)
-
-        return res_id
-
-
-
-    def getReviews(self, res_name):
-        """
-        Get Reviews of the specified Restaurant
-        """
-        res_id = self.getRestaurantID(res_name)
-        if res_id != 0:
-            zomato_url = "https://developers.zomato.com/api/v2.1/reviews?res_id="+str(res_id)+"&count=5"
-            resp = requests.get(zomato_url,headers=self.headers)
-            resp_dict = json.loads(resp.text)
-            user_reviews = (resp_dict['user_reviews'])
-
-            for ureview in user_reviews:
+            # Sometimes the queries will contains results where the Restaurant
+            # name is part of the address. So check specifically for the name
+            if res_name == r['restaurant']['name']:
                 zomato_dict = {}
-                zomato_dict['rating'] = ureview['review']['rating']
-                zomato_dict['review_text'] = ureview['review']['review_text']
-                review_list.append(zomato_dict)
+                res_id = r['restaurant']['R']['res_id']
+                self.logger.info("For %s, Restaurant ID = %d", res_name, res_id)
+                zomato_dict['res_name'] = r['restaurant']['user_rating']['aggregate_rating'] + " " + r['restaurant']['user_rating']['rating_text']
+                zomato_dict['res_addr'] = r['restaurant']['name'] + " " + r['restaurant']['user_rating']['votes'] + " " + r['restaurant']['price_range']
+                zomato_dict['res_url'] = r['restaurant']['url']
+                zomato_dict['res_photo'] = r['restaurant']['featured_image']
+                zomato_dict['res_menu'] = r'restaurant']['menu_url']
+                average_cost_for_two = r['restaurant']['average_cost_for_two']
+                res_review.append(zomato_dict)
 
-            # Calculate the average, max and min rating
+        return res_review

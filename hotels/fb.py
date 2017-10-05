@@ -33,6 +33,11 @@ class FB(object):
         return False
 
     def independantTextMessage(self, senderId, text):
+        """
+        Reference independant FB message
+        if fb.isFacebook():
+           fb.independantTextMessage(fb.sender_id, "I love Burgers !!!")
+        """
         headers = {"Content-Type":"application/json"}
         params = {"access_token":self.page_access_token}
         data = json.dumps({"recipient":{"id":senderId}, "message":{"text":text}})
@@ -43,6 +48,8 @@ class FB(object):
     def textMessage(self, messages, text):
         """
         Simple Text message Response
+        Reference Text Message:
+        messages = fb.textMessage(messages, "Alrighty !! Fetching your list")
         """
         self.logger.info("No Speech Response")
         tempresp = {
@@ -105,6 +112,8 @@ class FB(object):
     def imageMessage(self, messages, image_url = "" ):
         """
         Facebook Image card
+        Reference Image Message:
+        messages = fb.imageMessage(messages, "https://blog.magicpin.in/wp-content/uploads/2017/07/pizza.jpg")
         """
         if image_url == "":
             self.logger.info("No Image URL provided")

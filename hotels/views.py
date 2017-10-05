@@ -27,9 +27,7 @@ def get_hotel_info(request):
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
         fb = FB(body)
-        # Reference independant FB message
-        # if fb.isFacebook():
-        #     fb.independantTextMessage(fb.sender_id, "I love Burgers !!!")
+        zom = Zomat()
 
         query_json = body['result']['parameters']
         if query_json['geo-city']:
@@ -40,35 +38,33 @@ def get_hotel_info(request):
             area = query_json['area']
             print (area)
             loc = area + " " + loc
-        cuisine = str()
-        if "Cuisines" in query_json:
-            cuisine = query_json['Cuisines']
-            print (cuisine)
-        zom = Zomat()
         entity_id, entity_type = zom.getLocation(str(loc))
         print ("entity_id = ",entity_id, ", entity_type = ", entity_type)
 
+        messages = []
         restaurant_list = []
-        if not cuisine:
-            restaurant_list = zom.getBestRestaurants(entity_id, entity_type)
-        else:
+
+        if "Cuisines" in query_json:
+            cuisine = str()
+            cuisine = query_json['Cuisines']
+            print (cuisine)
             cuisine_id = zom.getCuisineID(city, cuisine)
             if cuisine_id == 0:
-                if fb.isFacebook():
-                    fb.independantTextMessage(fb.sender_id, "Could not find Restaurants for your specific Cuisine. Could you maybe re-check the spelling and try again?")
-
-            restaurant_list = zom.getBestRestaurants(entity_id, entity_type, cuisine_id)
-
-
-        messages = []
-        # Reference Text Message
-        #messages = fb.textMessage(messages, "Alrighty !! Fetching your list")
-
-        # Update FB Card message with Restaurant list
-        messages = fb.cardMessage(messages, restaurant_list)
-
-        # Reference Image Message
-        #messages = fb.imageMessage(messages, "https://blog.magicpin.in/wp-content/uploads/2017/07/pizza.jpg")
+                messages = fb.textMessage(messages, "Could not find Restaurants for your specific Cuisine. Could you maybe re-check the spelling and try again?")
+            else:
+                restaurant_list = zom.getBestRestaurants(entity_id, entity_type, cuisine_id)
+                # Update FB Card message with Restaurant list
+                messages = fb.cardMessage(messages, restaurant_list)
+        elif "res-name" in query_json:
+            print ("This is a query for a Review")
+            res_name = query_json['res-name']
+            print (res_name)
+            restaurant_review = zom.getReviews(res_name, entity_id, entity_type)
+            messages = fb.cardMessage(messages, restaurant_review)
+        else:
+            # Just get the Top 5 Restaurants in the location
+            restaurant_list = zom.getBestRestaurants(entity_id, entity_type)
+            messages = fb.cardMessage(messages, restaurant_list)
 
         response = {
             "messages" : messages

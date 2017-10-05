@@ -111,7 +111,7 @@ class Zomat(object):
                 zomato_dict['res_addr'] = r['restaurant']['name'] + " " + r['restaurant']['user_rating']['votes'] + " " + r['restaurant']['price_range']
                 zomato_dict['res_url'] = r['restaurant']['url']
                 zomato_dict['res_photo'] = r['restaurant']['featured_image']
-                zomato_dict['res_menu'] = r'restaurant']['menu_url']
+                zomato_dict['res_menu'] = r['restaurant']['menu_url']
                 average_cost_for_two = r['restaurant']['average_cost_for_two']
                 res_review.append(zomato_dict)
 

@@ -43,6 +43,16 @@ def get_hotel_info(request):
                     fb.independantTextMessage(fb.sender_id, "\"Which are the best Chinese Restaurants in Dadar, Mumbai\"")
                     fb.independantTextMessage(fb.sender_id, "\"What is the review of Blue Nile in Camp Area, Pune\"")
                     return Response("{}")
+            if body['originalRequest']['data']['postback']['payload']:
+                fb_rating = Rating(
+                    first_name = self.userInfo['first_name'],
+                    last_name = self.userInfo['last_name'],
+                    gender = self.userInfo['gender'],
+                    rating = str(body['originalRequest']['data']['postback']['payload'])
+                    fb_userId = str(self.sender_id)
+                )
+                fb_rating.save_to_db()
+                fb.independantTextMessage(fb.sender_id, "Thanks !! I'll let Raseel know how much you liked me !!")
         except:
             # Not a Postback, so continue
             print("Not a Postback, so continue")

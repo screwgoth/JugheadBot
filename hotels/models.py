@@ -9,7 +9,7 @@ class FBUser(models.Model):
     proile_pic = models.URLField(max_length=1024, blank=True)
     timezone = models.DecimalField(max_digits=4,decimal_places=2, blank=True)
     gender = models.CharField(max_length=15, blank=True)
-    is_payment = models.BooleanField(blank=True)
+    is_payment_enabled = models.BooleanField(blank=True)
     fb_userId = models.CharField(max_length=100)
     timestamp = models.DateTimeField()
 

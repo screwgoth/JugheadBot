@@ -28,7 +28,7 @@ class FB(object):
             profile_pic = self.userInfo['profile_pic'],
             gender = self.userInfo['gender'],
             timezone = self.userInfo['timezone'],
-            is_payment = self.userInfo['is_payment'],
+            is_payment_enabled = self.userInfo['is_payment_enabled'],
             fb_userId = self.sender_id
             )
         fb_user.save_to_db()

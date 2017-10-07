@@ -7,6 +7,7 @@ import requests
 import json
 from hotels.zomat import Zomat
 from hotels.fb import FB
+from hotels.models import Rating
 
 @api_view(['GET','POST'])
 def get_hotel_info(request):
@@ -35,14 +36,6 @@ def get_hotel_info(request):
 
         query_json = body['result']['parameters']
         try:
-            if "NEW_USER_STARTED" in body['originalRequest']['data']['postback']['payload']:
-                if fb.isFacebook():
-                    fb.independantTextMessage(fb.sender_id, "Hey there, Foodie !!! I'm JugheadBot, your friendly neighbourhood Restaurant finding Bot")
-                    fb.independantTextMessage(fb.sender_id, "You can ask me following questions:")
-                    fb.independantTextMessage(fb.sender_id, "\"Which are the best Restaurants in Kothrud, Pune\"")
-                    fb.independantTextMessage(fb.sender_id, "\"Which are the best Chinese Restaurants in Dadar, Mumbai\"")
-                    fb.independantTextMessage(fb.sender_id, "\"What is the review of Blue Nile in Camp Area, Pune\"")
-                    return Response("{}")
             if body['originalRequest']['data']['postback']['payload']:
                 fb_rating = Rating(
                     first_name = self.userInfo['first_name'],
@@ -53,6 +46,15 @@ def get_hotel_info(request):
                 )
                 fb_rating.save_to_db()
                 fb.independantTextMessage(fb.sender_id, "Thanks !! I'll let Raseel know how much you liked me !!")
+            if "NEW_USER_STARTED" in body['originalRequest']['data']['postback']['payload']:
+                if fb.isFacebook():
+                    fb.independantTextMessage(fb.sender_id, "Hey there, Foodie !!! I'm JugheadBot, your friendly neighbourhood Restaurant finding Bot")
+                    fb.independantTextMessage(fb.sender_id, "You can ask me following questions:")
+                    fb.independantTextMessage(fb.sender_id, "\"Which are the best Restaurants in Kothrud, Pune\"")
+                    fb.independantTextMessage(fb.sender_id, "\"Which are the best Chinese Restaurants in Dadar, Mumbai\"")
+                    fb.independantTextMessage(fb.sender_id, "\"What is the review of Blue Nile in Camp Area, Pune\"")
+
+            return Response("{}")
         except:
             # Not a Postback, so continue
             print("Not a Postback, so continue")

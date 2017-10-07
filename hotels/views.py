@@ -48,7 +48,7 @@ def get_hotel_info(request):
                     first_name = self.userInfo['first_name'],
                     last_name = self.userInfo['last_name'],
                     gender = self.userInfo['gender'],
-                    rating = str(body['originalRequest']['data']['postback']['payload'])
+                    rating = str(body['originalRequest']['data']['postback']['payload']),
                     fb_userId = str(self.sender_id)
                 )
                 fb_rating.save_to_db()

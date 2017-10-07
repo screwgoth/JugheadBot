@@ -46,8 +46,7 @@ def get_hotel_info(request):
                 )
                 fb_rating.save_to_db()
                 fb.independantTextMessage(fb.sender_id, "Thanks !! I'll let Raseel know how much you liked me !!")
-            if "NEW_USER_STARTED" in body['originalRequest']['data']['postback']['payload']:
-                if fb.isFacebook():
+                if "NEW_USER_STARTED" in body['originalRequest']['data']['postback']['payload']:
                     fb.independantTextMessage(fb.sender_id, "Hey there, Foodie !!! I'm JugheadBot, your friendly neighbourhood Restaurant finding Bot")
                     fb.independantTextMessage(fb.sender_id, "You can ask me following questions:")
                     fb.independantTextMessage(fb.sender_id, "\"Which are the best Restaurants in Kothrud, Pune\"")

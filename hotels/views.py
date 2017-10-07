@@ -38,25 +38,30 @@ def get_hotel_info(request):
         try:
             if body['originalRequest']['data']['postback']['payload']:
                 fb_rating = Rating(
-                    first_name = self.userInfo['first_name'],
-                    last_name = self.userInfo['last_name'],
-                    gender = self.userInfo['gender'],
-                    rating = str(body['originalRequest']['data']['postback']['payload']),
-                    fb_userId = str(self.sender_id)
+                    first_name=fb.userInfo['first_name'],
+                    last_name=fb.userInfo['last_name'],
+                    gender=fb.userInfo['gender'],
+                    rating=str(body['originalRequest']['data']['postback']['payload']),
+                    fb_userId=str(fb.sender_id)
                 )
                 fb_rating.save_to_db()
                 fb.independantTextMessage(fb.sender_id, "Thanks !! I'll let Raseel know how much you liked me !!")
-                if "NEW_USER_STARTED" in body['originalRequest']['data']['postback']['payload']:
-                    fb.independantTextMessage(fb.sender_id, "Hey there, Foodie !!! I'm JugheadBot, your friendly neighbourhood Restaurant finding Bot")
-                    fb.independantTextMessage(fb.sender_id, "You can ask me following questions:")
-                    fb.independantTextMessage(fb.sender_id, "\"Which are the best Restaurants in Kothrud, Pune\"")
-                    fb.independantTextMessage(fb.sender_id, "\"Which are the best Chinese Restaurants in Dadar, Mumbai\"")
-                    fb.independantTextMessage(fb.sender_id, "\"What is the review of Blue Nile in Camp Area, Pune\"")
+        except ValueError:
+                # Not a Postback, so continue
+                print("Not a Postback, so continue")
+                pass
 
-            return Response("{}")
-        except:
+        try:
+            if "NEW_USER_STARTED" in body['originalRequest']['data']['postback']['payload']:
+                fb.independantTextMessage(fb.sender_id, "Hey there, Foodie !!! I'm JugheadBot, your friendly neighbourhood Restaurant finding Bot")
+                fb.independantTextMessage(fb.sender_id, "You can ask me following questions:")
+                fb.independantTextMessage(fb.sender_id, "\"Which are the best Restaurants in Kothrud, Pune\"")
+                fb.independantTextMessage(fb.sender_id, "\"Which are the best Chinese Restaurants in Dadar, Mumbai\"")
+                fb.independantTextMessage(fb.sender_id, "\"What is the review of Blue Nile in Camp Area, Pune\"")
+                return Response("{}")
+        except ValueError:
             # Not a Postback, so continue
-            print("Not a Postback, so continue")
+            print("Not a New User Postback, so continue")
             pass
 
         if query_json['geo-city']:

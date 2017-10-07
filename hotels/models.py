@@ -6,7 +6,7 @@ from django.utils import timezone
 class FBUser(models.Model):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255, blank=True)
-    proile_pic = models.URLField(max_length=1024, blank=True)
+    #proile_pic = models.URLField(max_length=1024, blank=True)
     timezone = models.DecimalField(max_digits=4,decimal_places=2, blank=True)
     gender = models.CharField(max_length=15, blank=True)
     is_payment_enabled = models.BooleanField(blank=True)

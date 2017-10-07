@@ -25,11 +25,11 @@ class FB(object):
         fb_user = FBUser(
             first_name = self.userInfo['first_name'],
             last_name = self.userInfo['last_name'],
-            profile_pic = self.userInfo['profile_pic'],
+            #profile_pic = self.userInfo['profile_pic'],
             gender = self.userInfo['gender'],
             timezone = self.userInfo['timezone'],
             is_payment_enabled = self.userInfo['is_payment_enabled'],
-            fb_userId = self.sender_id
+            fb_userId = str(self.sender_id)
             )
         fb_user.save_to_db()
 

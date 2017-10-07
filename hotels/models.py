@@ -11,7 +11,7 @@ class FBUser(models.Model):
     gender = models.CharField(max_length=15, blank=True)
     is_payment = models.BooleanField(blank=True)
     fb_userId = models.CharField(max_length=100)
-    timestamp = models.DateTimeField(default=timezone.now)
+    timestamp = models.DateTimeField()
 
     def save_to_db(self):
         self.timestamp = timezone.now()

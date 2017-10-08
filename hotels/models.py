@@ -20,11 +20,11 @@ class FBUser(models.Model):
     def __str__(self):
         return self.first_name
 
-class Rating(models.Model):
+class Postbacks(models.Model):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255, blank=True)
     gender = models.CharField(max_length=15, blank=True)
-    rating = models.CharField(max_length=50)
+    postback = models.CharField(max_length=50)
     fb_userId = models.CharField(max_length=100)
     timestamp = models.DateTimeField()
 

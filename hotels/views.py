@@ -71,7 +71,7 @@ def get_hotel_info(request):
             city = query_json['geo-city']
             loc = city
             print (city)
-        if query_json['area']:
+        if 'area' in query_json:
             area = query_json['area']
             print (area)
             loc = area + " " + loc

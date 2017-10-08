@@ -27,6 +27,7 @@ def get_hotel_info(request):
         print (request.body)
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
+        print body
         fb = FB(body)
         zom = Zomat()
         loc = str("Pune")
@@ -36,7 +37,7 @@ def get_hotel_info(request):
 
         query_json = body['result']['parameters']
         try:
-            if body.has_key('postback'):
+            if 'postback' in body:
             #if body['originalRequest']['data']['postback']['payload']:
                 fb_rating = Postbacks(
                     first_name=fb.userInfo['first_name'],

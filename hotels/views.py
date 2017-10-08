@@ -29,14 +29,14 @@ def get_hotel_info(request):
         body = json.loads(body_unicode)
         fb = FB(body)
         zom = Zomat()
-        loc = str()
+        loc = str("Pune")
         entity_id = 0
         cuisine_id = 0
         entity_type = str()
 
         query_json = body['result']['parameters']
         try:
-            if body.has_key('postback'): 
+            if body.has_key('postback'):
             #if body['originalRequest']['data']['postback']['payload']:
                 fb_rating = Postbacks(
                     first_name=fb.userInfo['first_name'],
@@ -66,11 +66,13 @@ def get_hotel_info(request):
             print("Not a New User Postback, so continue")
             pass
 
-        if query_json['geo-city']:
+        #if query_json['geo-city']:
+        if query_json.has_key('geo-city'):
             city = query_json['geo-city']
             loc = city
             print (city)
-        if query_json['area']:
+        #if query_json['area']:
+        if query_json.has_key('area'):
             area = query_json['area']
             print (area)
             loc = area + " " + loc

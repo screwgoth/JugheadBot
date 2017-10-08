@@ -27,7 +27,7 @@ def get_hotel_info(request):
         print (request.body)
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
-        print body
+        print (body)
         fb = FB(body)
         zom = Zomat()
         loc = str("Pune")

@@ -46,6 +46,7 @@ def get_hotel_info(request):
                 )
                 fb_rating.save_to_db()
                 fb.independantTextMessage(fb.sender_id, "Thanks !! I'll let Raseel know how much you liked me !!")
+                return Response("{}")
         except ValueError:
                 # Not a Postback, so continue
                 print("Not a Postback, so continue")

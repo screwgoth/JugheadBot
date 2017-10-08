@@ -66,13 +66,11 @@ def get_hotel_info(request):
             print("Not a New User Postback, so continue")
             pass
 
-        #if query_json['geo-city']:
-        if body.has_key('geo-city'):
+        if query_json['geo-city']:
             city = query_json['geo-city']
             loc = city
             print (city)
-        #if query_json['area']:
-        if body.has_key('area'):
+        if query_json['area']:
             area = query_json['area']
             print (area)
             loc = area + " " + loc

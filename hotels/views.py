@@ -37,7 +37,7 @@ def get_hotel_info(request):
 
         query_json = body['result']['parameters']
         try:
-            if 'postback' in body:
+            if 'postback' in body['originalRequest']['data']:
             #if body['originalRequest']['data']['postback']['payload']:
                 fb_rating = Postbacks(
                     first_name=fb.userInfo['first_name'],

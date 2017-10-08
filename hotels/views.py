@@ -67,12 +67,12 @@ def get_hotel_info(request):
             pass
 
         #if query_json['geo-city']:
-        if query_json.has_key('geo-city'):
+        if body.has_key('geo-city'):
             city = query_json['geo-city']
             loc = city
             print (city)
         #if query_json['area']:
-        if query_json.has_key('area'):
+        if body.has_key('area'):
             area = query_json['area']
             print (area)
             loc = area + " " + loc

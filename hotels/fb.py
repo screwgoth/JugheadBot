@@ -2,6 +2,7 @@ import os
 import logging
 import requests
 import json
+from hotels.models import FBUser
 
 class FB(object):
     """
@@ -19,8 +20,20 @@ class FB(object):
         self.facebook_user_url = "https://graph.facebook.com/v2.10/"
         self.sender_id = self.body['originalRequest']['data']['sender']['id']
         self.recipient_id = self.body['originalRequest']['data']['recipient']['id']
-        self.userInfo = self.getUserInfo(self.sender_id)
+        self.userInfo = json.loads(self.getUserInfo(self.sender_id))
         self.logger.info("User Info:\n%s", self.userInfo)
+        fb_user = FBUser(
+            first_name = self.userInfo['first_name'],
+            last_name = self.userInfo['last_name'],
+            #profile_pic = self.userInfo['profile_pic'],
+            gender = self.userInfo['gender'],
+            timezone = self.userInfo['timezone'],
+            is_payment_enabled = self.userInfo['is_payment_enabled'],
+            fb_userId = str(self.sender_id)
+            )
+        fb_user.save_to_db()
+
+
 
     def isFacebook (self, senderID = 0):
         if self.source == "facebook":

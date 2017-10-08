@@ -36,7 +36,8 @@ def get_hotel_info(request):
 
         query_json = body['result']['parameters']
         try:
-            if body['originalRequest']['data']['postback']['payload']:
+            if body.has_key('postback'): 
+            #if body['originalRequest']['data']['postback']['payload']:
                 fb_rating = Postbacks(
                     first_name=fb.userInfo['first_name'],
                     last_name=fb.userInfo['last_name'],
@@ -47,7 +48,7 @@ def get_hotel_info(request):
                 fb_rating.save_to_db()
                 fb.independantTextMessage(fb.sender_id, "Thanks !! I'll let Raseel know how much you liked me !!")
                 return Response("{}")
-        except ValueError:
+        except:
                 # Not a Postback, so continue
                 print("Not a Postback, so continue")
                 pass
@@ -60,7 +61,7 @@ def get_hotel_info(request):
                 fb.independantTextMessage(fb.sender_id, "\"Which are the best Chinese Restaurants in Dadar, Mumbai\"")
                 fb.independantTextMessage(fb.sender_id, "\"What is the review of Blue Nile in Camp Area, Pune\"")
                 return Response("{}")
-        except ValueError:
+        except:
             # Not a Postback, so continue
             print("Not a New User Postback, so continue")
             pass

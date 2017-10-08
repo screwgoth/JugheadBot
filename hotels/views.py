@@ -7,7 +7,7 @@ import requests
 import json
 from hotels.zomat import Zomat
 from hotels.fb import FB
-from hotels.models import Rating
+from hotels.models import Postbacks
 
 @api_view(['GET','POST'])
 def get_hotel_info(request):
@@ -37,11 +37,11 @@ def get_hotel_info(request):
         query_json = body['result']['parameters']
         try:
             if body['originalRequest']['data']['postback']['payload']:
-                fb_rating = Rating(
+                fb_rating = Postbacks(
                     first_name=fb.userInfo['first_name'],
                     last_name=fb.userInfo['last_name'],
                     gender=fb.userInfo['gender'],
-                    rating=str(body['originalRequest']['data']['postback']['payload']),
+                    postback=str(body['originalRequest']['data']['postback']['payload']),
                     fb_userId=str(fb.sender_id)
                 )
                 fb_rating.save_to_db()

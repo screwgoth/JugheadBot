@@ -122,7 +122,7 @@ class Zomat(object):
                 review_url = menu_url.replace("menu", "reviews", 1)
                 #self.logger.info("Review URL = %s", review_url)
                 zomato_dict['button_url'] = review_url
-                zomato_dict['button_title'] = "Rating : " + r['restaurant']['user_rating']['aggregate_rating'] + "/5 (" + r['restaurant']['user_rating']['rating_text'] + ")"
+                zomato_dict['button_title'] = "Rating: " + r['restaurant']['user_rating']['aggregate_rating'] + "/5 (" + r['restaurant']['user_rating']['rating_text'] + ")"
                 res_review.append(zomato_dict)
 
         return res_review

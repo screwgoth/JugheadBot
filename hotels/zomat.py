@@ -119,7 +119,7 @@ class Zomat(object):
                 zomato_dict['fbcard_url'] = r['restaurant']['url']
                 zomato_dict['fbcard_photo'] = r['restaurant']['featured_image']
                 menu_url = r['restaurant']['menu_url']
-                menu_url.replace("menu", "reviews")
+                menu_url.replace("menu", "reviews", 1)
                 zomato_dict['button_url'] = menu_url
                 zomato_dict['button_title'] = "Rating : " + r['restaurant']['user_rating']['aggregate_rating'] + " (" + r['restaurant']['user_rating']['rating_text'] + ")"
                 res_review.append(zomato_dict)

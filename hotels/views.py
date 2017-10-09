@@ -1,4 +1,5 @@
 import os
+from time import sleep
 from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -48,10 +49,24 @@ def get_hotel_info(request):
                 fb_rating.save_to_db()
                 if "NEW_USER_STARTED" in body['originalRequest']['data']['postback']['payload']:
                     fb.independantTextMessage(fb.sender_id, "Hey there, Foodie !!! I'm JugheadBot, your friendly neighbourhood Restaurant finding Bot")
+                    sleep(1)
                     fb.independantTextMessage(fb.sender_id, "You can ask me following questions:")
                     fb.independantTextMessage(fb.sender_id, "\"Which are the best Restaurants in Kothrud, Pune\"")
+                    sleep(1)
                     fb.independantTextMessage(fb.sender_id, "\"Which are the best Chinese Restaurants in Dadar, Mumbai\"")
+                    sleep(1)
                     fb.independantTextMessage(fb.sender_id, "\"What is the review of Blue Nile in Camp Area, Pune\"")
+                    sleep(1)
+                elif "HELP_TEXT" in body['originalRequest']['data']['postback']['payload']:
+                    fb.independantTextMessage(fb.sender_id, "Currently, I understand only the following 3 types of questions")
+                    fb.independantTextMessage(fb.sender_id, "\"Which are the best Restaurants in Kothrud, Pune\"")
+                    sleep(1)
+                    fb.independantTextMessage(fb.sender_id, "\"Which are the best Chinese Restaurants in Dadar, Mumbai\"")
+                    sleep(1)
+                    fb.independantTextMessage(fb.sender_id, "\"What is the review of Blue Nile in Camp Area, Pune\"")
+                    sleep(1)
+                    fb,independantTextMessage(fb.sender_id, "And PLEASE remember to specify the Area AND City. For example: \"Manhattan, New York\" or \"Dadar, Mumbai\"")
+                    sleep(1)
                 else:
                     fb.independantTextMessage(fb.sender_id, "Thanks !! I'll let Raseel know how much you liked me !!")
                 return Response("{}")

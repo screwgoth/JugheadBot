@@ -104,7 +104,7 @@ class Zomat(object):
         resp = requests.get(zomato_url,headers=self.headers)
         resp_dict = json.loads(resp.text)
         restaurants = (resp_dict['restaurants'])
-        print ("Found restaurants : ",restaurants)
+        #print ("Found restaurants : ",restaurants)
 
         for r in restaurants:
             print (r['restaurant']['name'])
@@ -119,9 +119,10 @@ class Zomat(object):
                 zomato_dict['fbcard_url'] = r['restaurant']['url']
                 zomato_dict['fbcard_photo'] = r['restaurant']['featured_image']
                 menu_url = r['restaurant']['menu_url']
-                menu_url.replace("menu", "reviews")
-                zomato_dict['button_url'] = menu_url
-                zomato_dict['button_title'] = "Rating : " + r['restaurant']['user_rating']['aggregate_rating'] + " (" + r['restaurant']['user_rating']['rating_text'] + ")"
+                review_url = menu_url.replace("menu", "reviews", 1)
+                #self.logger.info("Review URL = %s", review_url)
+                zomato_dict['button_url'] = review_url
+                zomato_dict['button_title'] = "Rating: " + r['restaurant']['user_rating']['aggregate_rating'] + "/5 (" + r['restaurant']['user_rating']['rating_text'] + ")"
                 res_review.append(zomato_dict)
 
         return res_review

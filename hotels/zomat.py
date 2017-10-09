@@ -118,7 +118,9 @@ class Zomat(object):
                 zomato_dict['fbcard_subtitle'] = "Votes : " + str(r['restaurant']['user_rating']['votes']) + "\n" + "Average Cost for Two : " + str(r['restaurant']['average_cost_for_two'])
                 zomato_dict['fbcard_url'] = r['restaurant']['url']
                 zomato_dict['fbcard_photo'] = r['restaurant']['featured_image']
-                zomato_dict['button_url'] = r['restaurant']['menu_url']
+                menu_url = r['restaurant']['menu_url']
+                menu_url.replace("menu", "reviews")
+                zomato_dict['button_url'] = menu_url
                 zomato_dict['button_title'] = "Rating : " + r['restaurant']['user_rating']['aggregate_rating'] + " (" + r['restaurant']['user_rating']['rating_text'] + ")"
                 res_review.append(zomato_dict)
 

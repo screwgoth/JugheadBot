@@ -169,7 +169,7 @@ class FB(object):
         self.logger.info("Final FB URL for user : %s", final_fb_url)
         status = requests.get(final_fb_url,params=params,headers=headers)
         self.logger.info("status_code = %s, status_text = %s", status.status_code, status.text)
-        userInfo = json.loads(status_text)
+        userInfo = json.loads(status.text)
         if 'first_name' in userInfo:
             first_name = userInfo['first_name']
         if 'last_name' in userInfo:

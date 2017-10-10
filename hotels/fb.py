@@ -20,18 +20,19 @@ class FB(object):
         self.facebook_user_url = "https://graph.facebook.com/v2.10/"
         self.sender_id = self.body['originalRequest']['data']['sender']['id']
         self.recipient_id = self.body['originalRequest']['data']['recipient']['id']
-        self.userInfo = json.loads(self.getUserInfo(self.sender_id))
-        self.logger.info("User Info:\n%s", self.userInfo)
-        fb_user = FBUser(
-            first_name = self.userInfo['first_name'],
-            last_name = self.userInfo['last_name'],
-            #profile_pic = self.userInfo['profile_pic'],
-            gender = self.userInfo['gender'],
-            timezone = self.userInfo['timezone'],
-            is_payment_enabled = self.userInfo['is_payment_enabled'],
-            fb_userId = str(self.sender_id)
-            )
-        fb_user.save_to_db()
+        self.getUserInfo(self.sender_id)
+        # self.userInfo = json.loads(self.getUserInfo(self.sender_id))
+        # self.logger.info("User Info:\n%s", self.userInfo)
+        # fb_user = FBUser(
+        #     first_name = self.userInfo['first_name'],
+        #     last_name = self.userInfo['last_name'],
+        #     #profile_pic = self.userInfo['profile_pic'],
+        #     gender = self.userInfo['gender'],
+        #     timezone = self.userInfo['timezone'],
+        #     is_payment_enabled = self.userInfo['is_payment_enabled'],
+        #     fb_userId = str(self.sender_id)
+        #     )
+        # fb_user.save_to_db()
 
 
 
@@ -155,6 +156,12 @@ class FB(object):
         """
         Get User info
         """
+        first_name = "First Name"
+        last_name = "Last Name"
+        gender = "Not mentioned"
+        timezone = "0.0"
+        is_payment_enabled = False
+
         headers = {"Content-Type":"application/json"}
         fields = "first_name,last_name,profile_pic,timezone,gender,is_payment_enabled,last_ad_referral"
         params = {"fields": fields, "access_token":self.page_access_token}
@@ -162,4 +169,24 @@ class FB(object):
         self.logger.info("Final FB URL for user : %s", final_fb_url)
         status = requests.get(final_fb_url,params=params,headers=headers)
         self.logger.info("status_code = %s, status_text = %s", status.status_code, status.text)
-        return status.text
+        userInfo = json.loads(status_text)
+        if 'first_name' in userInfo:
+            first_name = userInfo['first_name']
+        if 'last_name' in userInfo:
+            last_name = userInfo['last_name']
+        if 'gender' in userInfo:
+            gender = userInfo['gender']
+        if 'timezone' in userInfo:
+            timezone = userInfo['timezone']
+        if 'is_payment_enabled' in userInfo:
+            is_payment_enabled = userInfo['is_payment_enabled']
+        self.logger.info("User Info:\n%s", userInfo)
+        fb_user = FBUser(
+            first_name = first_name,
+            last_name = last_name,
+            gender = gender,
+            timezone = timezone,
+            is_payment_enabled = is_payment_enabled,
+            fb_userId = str(userID)
+            )
+        fb_user.save_to_db()

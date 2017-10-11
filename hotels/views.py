@@ -36,46 +36,46 @@ def get_hotel_info(request):
         entity_type = str()
 
         query_json = body['result']['parameters']
-        try:
-            if 'postback' in body['originalRequest']['data']:
-            #if body['originalRequest']['data']['postback']['payload']:
-                fb_rating = Postbacks(
-                    first_name=fb.userInfo['first_name'],
-                    last_name=fb.userInfo['last_name'],
-                    gender=fb.userInfo['gender'],
-                    postback=str(body['originalRequest']['data']['postback']['payload']),
-                    fb_userId=str(fb.sender_id)
-                )
-                fb_rating.save_to_db()
-                postback = body['originalRequest']['data']['postback']['payload']
-                handle_postback(postback, fb)
-                # if "NEW_USER_STARTED" in body['originalRequest']['data']['postback']['payload']:
-                #     fb.independantTextMessage(fb.sender_id, "Hey there, Foodie !!! I'm JugheadBot, your friendly neighbourhood Restaurant finding Bot")
-                #     sleep(1)
-                #     fb.independantTextMessage(fb.sender_id, "You can ask me following questions:")
-                #     fb.independantTextMessage(fb.sender_id, "\"Which are the best Restaurants in Kothrud, Pune\"")
-                #     sleep(1)
-                #     fb.independantTextMessage(fb.sender_id, "\"Which are the best Chinese Restaurants in Dadar, Mumbai\"")
-                #     sleep(1)
-                #     fb.independantTextMessage(fb.sender_id, "\"What is the review of Blue Nile in Camp Area, Pune\"")
-                #     sleep(1)
-                # elif "HELP_TEXT" in body['originalRequest']['data']['postback']['payload']:
-                #     fb.independantTextMessage(fb.sender_id, "Currently, I understand only the following 3 types of questions")
-                #     fb.independantTextMessage(fb.sender_id, "\"Which are the best Restaurants in Kothrud, Pune\"")
-                #     sleep(1)
-                #     fb.independantTextMessage(fb.sender_id, "\"Which are the best Chinese Restaurants in Dadar, Mumbai\"")
-                #     sleep(1)
-                #     fb.independantTextMessage(fb.sender_id, "\"What is the review of Blue Nile in Camp Area, Pune\"")
-                #     sleep(1)
-                #     fb,independantTextMessage(fb.sender_id, "And PLEASE remember to specify the Area AND City. For example: \"Manhattan, New York\" or \"Dadar, Mumbai\"")
-                #     sleep(1)
-                # else:
-                #     fb.independantTextMessage(fb.sender_id, "Thanks !! I'll let Raseel know how much you liked me !!")
-                return Response("{}")
-        except:
-                # Not a Postback, so continue
-                print("Not a Postback, so continue")
-                pass
+        #try:
+        if 'postback' in body['originalRequest']['data']:
+        #if body['originalRequest']['data']['postback']['payload']:
+            fb_rating = Postbacks(
+                first_name=fb.userInfo['first_name'],
+                last_name=fb.userInfo['last_name'],
+                gender=fb.userInfo['gender'],
+                postback=str(body['originalRequest']['data']['postback']['payload']),
+                fb_userId=str(fb.sender_id)
+            )
+            fb_rating.save_to_db()
+            postback = body['originalRequest']['data']['postback']['payload']
+            handle_postback(postback, fb)
+            # if "NEW_USER_STARTED" in body['originalRequest']['data']['postback']['payload']:
+            #     fb.independantTextMessage(fb.sender_id, "Hey there, Foodie !!! I'm JugheadBot, your friendly neighbourhood Restaurant finding Bot")
+            #     sleep(1)
+            #     fb.independantTextMessage(fb.sender_id, "You can ask me following questions:")
+            #     fb.independantTextMessage(fb.sender_id, "\"Which are the best Restaurants in Kothrud, Pune\"")
+            #     sleep(1)
+            #     fb.independantTextMessage(fb.sender_id, "\"Which are the best Chinese Restaurants in Dadar, Mumbai\"")
+            #     sleep(1)
+            #     fb.independantTextMessage(fb.sender_id, "\"What is the review of Blue Nile in Camp Area, Pune\"")
+            #     sleep(1)
+            # elif "HELP_TEXT" in body['originalRequest']['data']['postback']['payload']:
+            #     fb.independantTextMessage(fb.sender_id, "Currently, I understand only the following 3 types of questions")
+            #     fb.independantTextMessage(fb.sender_id, "\"Which are the best Restaurants in Kothrud, Pune\"")
+            #     sleep(1)
+            #     fb.independantTextMessage(fb.sender_id, "\"Which are the best Chinese Restaurants in Dadar, Mumbai\"")
+            #     sleep(1)
+            #     fb.independantTextMessage(fb.sender_id, "\"What is the review of Blue Nile in Camp Area, Pune\"")
+            #     sleep(1)
+            #     fb,independantTextMessage(fb.sender_id, "And PLEASE remember to specify the Area AND City. For example: \"Manhattan, New York\" or \"Dadar, Mumbai\"")
+            #     sleep(1)
+            # else:
+            #     fb.independantTextMessage(fb.sender_id, "Thanks !! I'll let Raseel know how much you liked me !!")
+            return Response("{}")
+        # except:
+        #         # Not a Postback, so continue
+        #         print("Not a Postback, so continue")
+        #         pass
 
         if 'geo-city' in query_json:
             city = query_json['geo-city']
